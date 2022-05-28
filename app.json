@@ -1,7 +1,9 @@
 {
   "pages":[
     "pages/login/login",
-    "pages/register/register"
+    "pages/register/register",
+    "pages/customer/index/index",
+    "pages/admin/index/index"
   ],
   "window":{
     "backgroundTextStyle":"light",

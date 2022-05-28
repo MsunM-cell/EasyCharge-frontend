@@ -16,7 +16,17 @@ Page({
     }
 
     // 登录的网络请求
-    
+
+    // 测试
+    if (this.data.identity === 0) {
+      wx.navigateTo({
+        url: '/pages/customer/index/index'
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/admin/index/index'
+      })
+    }
   },
 
   // 用户注册
