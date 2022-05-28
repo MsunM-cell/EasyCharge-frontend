@@ -2,7 +2,7 @@
   <view class="text-black" slot="content">注册</view>
 </cu-custom>
 
-<form>
+<form bindsubmit="register">
   <view class="cu-form-group margin-bottom">
     <view class="text-df text-bold-less margin-right-sm">身份</view>
     <picker bindchange="selectIdentity" value="{{index}}" range="{{identity}}">

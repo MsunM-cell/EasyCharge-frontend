@@ -25,5 +25,38 @@ Page({
     this.setData({
       is_2_pwd_invisible: is_2_pwd_invisible
     })
+  },
+
+  // 注册
+  register(e) {
+    let username = e.detail.value.username
+    let password = e.detail.value.password
+    let password_confirmed = e.detail.value.password_confirmed
+
+    if (!username || !password || !password_confirmed) {
+      wx.showToast({
+        title: '信息不完整',
+        icon: 'error',
+      })
+      return
+    }
+
+    if (password.length < 6 || password.length > 11) {
+      wx.showToast({
+        title: '密码长度6~11位',
+        icon: 'error',
+      })
+      return
+    }
+
+    if (password != password_confirmed) {
+      wx.showToast({
+        title: '两次密码不相同',
+        icon: 'error',
+      })
+      return
+    }
+
+    // 注册的网络请求
   }
 })

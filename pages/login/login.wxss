@@ -6,12 +6,20 @@ page {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20vh;
+  margin-top: 15vh;
   margin-bottom: 10vh;
 }
 
 .logo image {
   width: 40vw;
+}
+
+.identity-view {
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 44rpx;
+  margin-bottom: 5vh;
 }
 
 .info {
