@@ -1,0 +1,29 @@
+<cu-custom bgColor="bg-white" isBack="true">
+  <view class="text-black" slot="content">注册</view>
+</cu-custom>
+
+<form>
+  <view class="cu-form-group margin-bottom">
+    <view class="text-df text-bold-less margin-right-sm">身份</view>
+    <picker bindchange="selectIdentity" value="{{index}}" range="{{identity}}">
+      <view class="picker">
+        {{identity[index]}}
+      </view>
+    </picker>
+  </view>
+  <view class="cu-form-group">
+    <view class="text-df text-bold-less margin-right-sm">用户名</view>
+    <input name="username" placeholder="请输入用户名" />
+  </view>
+  <view class="cu-form-group">
+    <view class="text-df text-bold-less margin-right-sm">密码</view>
+    <input name="password" password="{{is_pwd_invisible}}" placeholder="请输入6~11位密码" />
+    <text class="{{is_pwd_invisible?'cuIcon-attention':'cuIcon-attentionforbid'}}" bindtap="setPwdVisibility" />
+  </view>
+  <view class="cu-form-group">
+    <view class="text-df text-bold-less margin-right-sm">确认密码</view>
+    <input name="password_confirmed" password="{{is_2_pwd_invisible}}" placeholder="请再次输入密码" />
+    <text class="{{is_2_pwd_invisible==true?'cuIcon-attention':'cuIcon-attentionforbid'}}" bindtap="set2PwdVisibility" />
+  </view>
+  <button class="register-btn cu-btn round bg-gradual-blue shadow text-df margin-top" form-type="submit">注册</button>
+</form>

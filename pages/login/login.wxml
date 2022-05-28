@@ -1,0 +1,20 @@
+<view class="logo">
+  <image src="/images/logo.png" mode="widthFix" />
+</view>
+
+<form>
+  <view class="info">
+    <text class="cuIcon-friendfamous" decode="true">&emsp;</text>
+    <input name="username" placeholder="请输入用户名" />
+  </view>
+  <view class="info">
+    <text class="cuIcon-lock" decode="true">&emsp;</text>
+    <input name="password" password="true" placeholder="请输入密码" />
+  </view>
+  <button class="login-btn cu-btn round bg-gradual-blue shadow text-df">登录</button>
+</form>
+
+<view class="flex text-bold text-center margin-top-one">
+  <view class="flex-sub solid-right" bindtap="register">我要注册</view>
+  <view class="flex-sub">我是管理员</view>
+</view>
