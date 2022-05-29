@@ -1,10 +1,51 @@
-.card {
+.cover {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+/* .card {
   background-color: #ffffff;
   border-radius: 20rpx;
   margin: 5vw;
 }
 
 .center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+} */
+
+.layout {
+  position: absolute;
+  top: 30%;
+  width: 100vw;
+  z-index: 100;
+}
+
+.status {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 60rpx;
+}
+
+.time {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.display {
+  position: relative;
+  top: 38vh;
+}
+
+.display-center {
   display: flex;
   flex-direction: column;
   justify-content: center;

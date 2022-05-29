@@ -1,4 +1,4 @@
-<view wx:if="{{!order_id}}">
+<scroll-view wx:if="{{!order_id}}" scroll-y class="scrollPage" refresher-enabled="true" refresher-default-style="none" refresher-triggered="{{triggered}}" bindrefresherrefresh="onRefresh">
   <image src='https://w.wallhaven.cc/full/y8/wallhaven-y8gp9d.jpg' mode='widthFix' style='width:100%' />
   <image src='https://w.wallhaven.cc/full/l3/wallhaven-l3k1dl.jpg' mode='widthFix' style='width:100%' />
   <view class="card padding shadow -gray flex">
@@ -12,8 +12,32 @@
     </view>
   </view>
   <view class='cu-tabbar-height' />
-</view>
+</scroll-view>
 
-<scroll-view wx:elif="{{order_id}}" scroll-y class="scrollPage">
-
+<scroll-view wx:elif="{{order_id}}" scroll-y class="scrollPage" refresher-enabled="true" refresher-default-style="none" refresher-triggered="{{triggered}}" bindrefresherrefresh="onRefresh">
+  <view class="cover">
+    <image src="https://wx3.sinaimg.cn/mw2000/0084vph8ly1h2pqkt875cj31pd313kfb.jpg" mode="heightFix" style="height:100vh" />
+  </view>
+  <view class="layout">
+    <view wx:if="{{order.status==0}}">
+      <view class="status">
+        快充 等候区中...
+      </view>
+      <view class="time">下单时间：{{order.create_time}}</view>
+      <view class="display flex text-white">
+        <view class="flex-sub display-center">
+          <view>前车等待数量</view>
+          <view class="text-bold text-xxl margin-top">10</view>
+        </view>
+        <view class="flex-sub display-center">
+          <view>排队号码</view>
+          <view class="text-bold text-xxl margin-top">8</view>
+        </view>
+        <view class="flex-sub display-center">
+          <view>请求充电量</view>
+          <view class="text-bold text-xxl margin-top">80</view>
+        </view>
+      </view>
+    </view>
+  </view>
 </scroll-view>

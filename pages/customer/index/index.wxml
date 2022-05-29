@@ -4,6 +4,7 @@
 <about wx:if="{{PageCur=='about'}}"></about> -->
 
 <charge wx:if="{{pageCur=='charge'}}"></charge>
+<order wx:if="{{pageCur=='order'}}"></order>
 
 <view class="cu-bar tabbar bg-white shadow foot" style="border-radius:40rpx">
   <view class="action" bindtap="navChange" data-cur="charge">

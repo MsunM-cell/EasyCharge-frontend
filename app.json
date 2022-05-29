@@ -1,14 +1,14 @@
 {
   "pages":[
-    "pages/login/login",
-    "pages/register/register",
     "pages/customer/index/index",
     "pages/customer/charge/home/home",
+    "pages/customer/order/home/home",
+    "pages/login/login",
+    "pages/register/register",  
     "pages/admin/index/index",
-    
     "pages/admin/chargeStationList/chargeStationList",
     "pages/admin/stationDetail/stationDetail",
-    "pages/customer/charge/order/order",
+    "pages/customer/charge/order/order"
   ],
   "window":{
     "backgroundTextStyle":"light",

@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "charge": "/pages/customer/charge/home/home"
+    "charge": "/pages/customer/charge/home/home",
+    "order": "/pages/customer/order/home/home"
   }
 }
