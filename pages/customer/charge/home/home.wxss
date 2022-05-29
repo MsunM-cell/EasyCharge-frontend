@@ -3,3 +3,10 @@
   border-radius: 20rpx;
   margin: 5vw;
 }
+
+.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

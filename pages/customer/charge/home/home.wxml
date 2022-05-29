@@ -1,9 +1,15 @@
 <scroll-view scroll-y class="scrollPage">
-  <image src='https://w.wallhaven.cc/full/y8/wallhaven-y8gp9d.jpg' mode='widthFix' class='png' style='width:100%' />
-  <image src='https://w.wallhaven.cc/full/l3/wallhaven-l3k1dl.jpg' mode='widthFix' class='png' style='width:100%' />
+  <image src='https://w.wallhaven.cc/full/y8/wallhaven-y8gp9d.jpg' mode='widthFix' style='width:100%' />
+  <image src='https://w.wallhaven.cc/full/l3/wallhaven-l3k1dl.jpg' mode='widthFix' style='width:100%' />
   <view class="card padding shadow -gray flex">
-    <view class="flex-sub text-center">aa</view>
-    <view class="flex-sub">bb</view>
+    <view class="flex-sub center solid-right">
+      <image src="/images/charge.png" mode="widthFix" style="width:30%" />
+      <view class="margin-top">我要充电</view>
+    </view>
+    <view class="flex-sub center">
+      <image src="/images/pile.png" mode="widthFix" style="width:30%" />
+      <view class="margin-top">查看配置</view>
+    </view>
   </view>
   <view class='cu-tabbar-height' />
 </scroll-view>
