@@ -4,7 +4,10 @@
     "pages/register/register",
     
     "pages/customer/charge/home/home",
-    "pages/admin/index/index"
+    "pages/admin/index/index",
+    
+    "pages/admin/chargeStationList/chargeStationList",
+    "pages/admin/stationDetail/stationDetail"
   ],
   "window":{
     "backgroundTextStyle":"light",

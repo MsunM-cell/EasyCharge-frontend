@@ -1,0 +1,52 @@
+/* pages/admin/chargeStationList/chargeStationList.wxss */
+
+
+.chargeStationContainer {
+  height: 120rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  
+  border-radius: 20rpx;
+
+  border: 3rpx solid #E0E3DA;
+  box-shadow:5rpx 5rpx 5rpx 5rpx #E0E3DA;
+
+  background-color: #ffffff;
+  margin: 30rpx;
+
+  padding: 30rpx;
+
+}
+
+
+.stationImg {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+/* 包裹两行文字 */
+
+.stationInfo {
+  width: 100%;
+  margin-left: 25rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.text_small {
+  font-size: 30rpx;
+  word-break: break-all;
+  color: #7a7878;
+  margin-top: 10rpx
+}
+
+
+.chargeSatusText{
+  font-size: 38rpx;
+  font-weight: bold;
+
+}
