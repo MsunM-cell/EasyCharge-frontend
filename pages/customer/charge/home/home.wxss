@@ -33,6 +33,13 @@
   font-size: 60rpx;
 }
 
+.center {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .time {
   color: white;
   display: flex;

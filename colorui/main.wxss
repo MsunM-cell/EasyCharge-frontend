@@ -3810,6 +3810,10 @@ scroll-view.cu-steps .cu-item {
 	font-size: 120rpx;
 }
 
+.text-super {
+	font-size: 150rpx;
+}
+
 .text-Abc {
 	text-transform: Capitalize;
 }

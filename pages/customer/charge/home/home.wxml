@@ -62,5 +62,52 @@
         </view>
       </view>
     </view>
+
+    <view wx:if="{{order.status==2}}">
+      <view class="center">
+        <text class="text-xxl text-bold margin-right-sm">快充</text>
+        <text class="text-xxl margin-right-sm">已充</text>
+        <text class="text-bold text-super margin-right-sm">23</text>
+        <text>度</text>
+      </view>
+      <view class="time">开始时间：{{order.create_time}}</view>
+      <button class="center cu-btn round bg-blue shadow" style="position:relative;top:24vh" bindtap="changeChargeRequest">取消充电</button>
+      <view class="flex text-white" style="position:relative;top:30vh">
+        <view class="flex-sub display-center">
+          <view>时间（分）</view>
+          <view class="text-bold text-xxl margin-top">26</view>
+        </view>
+        <view class="flex-sub display-center">
+          <view>金额（元）</view>
+          <view class="text-bold text-xxl margin-top">8</view>
+        </view>
+        <view class="flex-sub display-center">
+          <view>请求充电量（度）</view>
+          <view class="text-bold text-xxl margin-top">80</view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{order.status==3}}">
+      <view class="status">
+        快充 充电已完成
+      </view>
+      <view class="time">结束时间：{{order.create_time}}</view>
+      <button class="change-btn cu-btn round bg-blue shadow" bindtap="changeChargeRequest">支付订单</button>
+      <view class="display flex text-white">
+        <view class="flex-sub display-center">
+          <view>时间（分）</view>
+          <view class="text-bold text-xxl margin-top">26</view>
+        </view>
+        <view class="flex-sub display-center">
+          <view>金额（元）</view>
+          <view class="text-bold text-xxl margin-top">8</view>
+        </view>
+        <view class="flex-sub display-center">
+          <view>本次充电量（度）</view>
+          <view class="text-bold text-xxl margin-top">80</view>
+        </view>
+      </view>
+    </view>
   </view>
 </scroll-view>
