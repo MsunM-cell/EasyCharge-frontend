@@ -1,8 +1,8 @@
-<scroll-view scroll-y class="scrollPage">
+<view wx:if="{{!order_id}}">
   <image src='https://w.wallhaven.cc/full/y8/wallhaven-y8gp9d.jpg' mode='widthFix' style='width:100%' />
   <image src='https://w.wallhaven.cc/full/l3/wallhaven-l3k1dl.jpg' mode='widthFix' style='width:100%' />
   <view class="card padding shadow -gray flex">
-    <view class="flex-sub center solid-right">
+    <view class="flex-sub center solid-right" bindtap="startCharge">
       <image src="/images/charge.png" mode="widthFix" style="width:30%" />
       <view class="margin-top">我要充电</view>
     </view>
@@ -12,4 +12,8 @@
     </view>
   </view>
   <view class='cu-tabbar-height' />
+</view>
+
+<scroll-view wx:elif="{{order_id}}" scroll-y class="scrollPage">
+
 </scroll-view>

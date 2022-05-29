@@ -24,6 +24,8 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    customer: {
+      order_id: 1
+    }
   }
 })

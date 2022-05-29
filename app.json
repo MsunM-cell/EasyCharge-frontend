@@ -1,9 +1,10 @@
 {
-  "pages":["pages/customer/index/index",
+  "pages":[
     "pages/login/login",
     "pages/register/register",
-    
+    "pages/customer/index/index",
     "pages/customer/charge/home/home",
+    "pages/customer/charge/order/order",
     "pages/admin/index/index"
   ],
   "window":{
