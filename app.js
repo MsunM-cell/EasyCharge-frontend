@@ -1,3 +1,10 @@
+/*
+ * @Date: 2022-05-29 14:08:42
+ * @LastEditors: ShimaoZ
+ * @LastEditTime: 2022-05-29 21:53:35
+ * @FilePath: \EasyCharge-frontend\app.js
+ * @copyright: Copyright (C) 2022 shimaoZeng. All rights reserved.
+ */
 // app.js
 App({
   onLaunch() {
@@ -24,7 +31,9 @@ App({
     })
   },
   globalData: {
-    userInfo: null,
-    managerId:''
+    managerId:'',
+    customer: {
+      order_id: 1
+    }
   }
 })
