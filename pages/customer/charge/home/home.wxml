@@ -1,17 +1,30 @@
 <scroll-view wx:if="{{!order_id}}" scroll-y class="scrollPage" refresher-enabled="true" refresher-default-style="none" refresher-triggered="{{triggered}}" bindrefresherrefresh="onRefresh">
-  <image src='https://w.wallhaven.cc/full/y8/wallhaven-y8gp9d.jpg' mode='widthFix' style='width:100%' />
-  <image src='https://w.wallhaven.cc/full/l3/wallhaven-l3k1dl.jpg' mode='widthFix' style='width:100%' />
-  <view class="card padding shadow -gray flex">
-    <view class="flex-sub center solid-right" bindtap="startCharge">
-      <image src="/images/charge.png" mode="widthFix" style="width:30%" />
-      <view class="margin-top">我要充电</view>
-    </view>
-    <view class="flex-sub center">
-      <image src="/images/pile.png" mode="widthFix" style="width:30%" />
-      <view class="margin-top">查看配置</view>
+  <view class="cover">
+    <image src="https://wx3.sinaimg.cn/mw2000/0084vph8ly1h2pqkt875cj31pd313kfb.jpg" mode="heightFix" style="height:100vh" />
+  </view>
+  <view class="layout">
+    <view>
+      <view class="status">
+        <view>欢迎来到</view>
+        <view>e充电 客户端！</view>
+      </view>
+      <button class="change-btn cu-btn round bg-blue shadow" bindtap="changeChargeRequest">我要充电</button>
+      <view class="display flex text-white">
+        <view class="flex-sub display-center">
+          <view>快充电桩</view>
+          <view class="text-bold text-xxl margin-top">10</view>
+        </view>
+        <view class="flex-sub display-center">
+          <view>慢充电桩</view>
+          <view class="text-bold text-xxl margin-top">8</view>
+        </view>
+        <!-- <view class="flex-sub display-center">
+          <view>请求充电量</view>
+          <view class="text-bold text-xxl margin-top">80</view>
+        </view> -->
+      </view>
     </view>
   </view>
-  <view class='cu-tabbar-height' />
 </scroll-view>
 
 <scroll-view wx:elif="{{order_id}}" scroll-y class="scrollPage" refresher-enabled="true" refresher-default-style="none" refresher-triggered="{{triggered}}" bindrefresherrefresh="onRefresh">

@@ -33,7 +33,7 @@ App({
   globalData: {
     managerId:'',
     customer: {
-      order_id: 1
+      order_id: null
     }
   }
 })
