@@ -8,7 +8,7 @@
     
     "pages/admin/chargeStationList/chargeStationList",
     "pages/admin/stationDetail/stationDetail",
-    "pages/customer/charge/order/order",
+    "pages/customer/charge/order/order"
   ],
   "window":{
     "backgroundTextStyle":"light",

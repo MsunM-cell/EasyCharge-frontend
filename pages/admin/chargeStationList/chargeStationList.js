@@ -14,18 +14,30 @@ Page({
           pointID:2,
           status:0,
           type:0,
+          order_id:123,
+          chargeCnt:123,
+          charteTime:45,
+          chargeElec:123
+
         },
         {
           pointID:10,
           status:1,
           type:1,
+          order_id:123,
+          chargeCnt:123,
+          charteTime:45,
+          chargeElec:123
         },        
         {
           pointID:11,
           status:2,
           type:0,
+          order_id:123,
+          chargeCnt:123,
+          charteTime:45,
+          chargeElec:123
         }
-
       ]
   },
 
