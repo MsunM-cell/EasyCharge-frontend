@@ -1,2 +1,111 @@
-<!--pages/customer/order/info/info.wxml-->
-<text>pages/customer/order/info/info.wxml</text>
+<cu-custom bgColor="bg-white" isBack="true">
+  <view class="text-black" slot="content">订单详情</view>
+</cu-custom>
+
+<view class="cu-list menu card-menu margin-top">
+  <view class="cu-item">
+    <view class="content">
+      <text class="cuIcon-edit text-blue"></text>
+      <text class="text-grey text-bold">订单信息</text>
+    </view>
+  </view>
+  <view class="cu-item">
+    <view class="content">
+      <text class="cuIcon-text text-blue"></text>
+      <text class="text-grey">订单id</text>
+    </view>
+    <view class="action">
+      <text class="text-grey">12</text>
+    </view>
+  </view>
+  <view class="cu-item">
+    <view class="content">
+      <text class="cuIcon-refund text-blue"></text>
+      <text class="text-grey">订单状态</text>
+    </view>
+    <view class="action">
+      <text class="text-grey">待支付</text>
+    </view>
+  </view>
+  <view class="cu-item">
+    <view class="content">
+      <text class="cuIcon-time text-blue"></text>
+      <text class="text-grey">订单生成时间</text>
+    </view>
+    <view class="action">
+      <text class="text-grey">2021 10.28</text>
+    </view>
+  </view>
+  <view class="cu-item">
+    <view class="content">
+      <text class="cuIcon-light text-blue"></text>
+      <text class="text-grey">充电模式</text>
+    </view>
+    <view class="action">
+      <text class="text-grey">快充</text>
+    </view>
+  </view>
+  <view class="cu-item">
+    <view class="content">
+      <text class="cuIcon-lightfill text-blue"></text>
+      <text class="text-grey">请求充电量</text>
+    </view>
+    <view class="action">
+      <text class="text-grey">100 度</text>
+    </view>
+  </view>
+</view>
+
+<view class="cu-list menu card-menu margin-top">
+  <view class="cu-item">
+    <view class="content">
+      <text class="cuIcon-edit text-green"></text>
+      <text class="text-grey text-bold">充电详单</text>
+    </view>
+  </view>
+  <view class="cu-item">
+    <view class="content">
+      <text class="cuIcon-mobile text-green"></text>
+      <text class="text-grey">充电桩id</text>
+    </view>
+    <view class="action">
+      <text class="text-grey">12</text>
+    </view>
+  </view>
+  <view class="cu-item">
+    <view class="content">
+      <text class="cuIcon-time text-green"></text>
+      <text class="text-grey">充电开始时间</text>
+    </view>
+    <view class="action">
+      <text class="text-grey">待支付</text>
+    </view>
+  </view>
+  <view class="cu-item">
+    <view class="content">
+      <text class="cuIcon-time text-green"></text>
+      <text class="text-grey">充电结束时间</text>
+    </view>
+    <view class="action">
+      <text class="text-grey">2021 10.28</text>
+    </view>
+  </view>
+  <view class="cu-item">
+    <view class="content">
+      <text class="cuIcon-light text-green"></text>
+      <text class="text-grey">已充电量</text>
+    </view>
+    <view class="action">
+      <text class="text-grey">快充</text>
+    </view>
+  </view>
+  <view class="cu-item">
+    <view class="content">
+      <text class="cuIcon-recharge text-green"></text>
+      <text class="text-grey">总金额</text>
+    </view>
+    <view class="action">
+      <text class="text-grey">100 度</text>
+    </view>
+  </view>
+</view>
