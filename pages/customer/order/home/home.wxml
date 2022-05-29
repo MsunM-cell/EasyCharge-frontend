@@ -1,2 +1,38 @@
-<!--pages/customer/order/home/home.wxml-->
-<text>pages/customer/order/home/home.wxml</text>
+<cu-custom bgColor="bg-white">
+  <view class="text-black" slot="content">我的订单</view>
+</cu-custom>
+
+<scroll-view scroll-y class="scrollPage" refresher-enabled="true" refresher-default-style="none" refresher-triggered="{{triggered}}" bindrefresherrefresh="onRefresh">
+  <view wx:for="{{orders}}">
+    <view class="order-card shadow -gray padding-sm">
+      <view class="padding-bottom-xs solid-bottom">
+        <text class="text-grey">订单id：</text>
+        <text class="text-bold">{{item.id}}</text>
+      </view>
+      <view class="flex align-center">
+        <view class="margin-sm">
+          <image wx:if="{{item.status==0}}" src="/images/order/wait.png" mode="widthFix" style="width:10vw" />
+          <image wx:if="{{item.status==1}}" src="/images/order/precharge.png" mode="widthFix" style="width:10vw" />
+          <image wx:if="{{item.status==2}}" src="/images/order/charge.png" mode="widthFix" style="width:10vw" />
+          <image wx:if="{{item.status==3}}" src="/images/order/waitpay.png" mode="widthFix" style="width:10vw" />
+          <image wx:if="{{item.status==4}}" src="/images/order/pay.png" mode="widthFix" style="width:10vw" />
+          <image wx:if="{{item.status==5}}" src="/images/order/cancel.png" mode="widthFix" style="width:10vw" />
+        </view>
+        <view class="flex justify-between align-center margin-sm" style="flex:1">
+          <view>
+            <view>
+              <text class="text-grey">模式：</text>
+              <text class="text-bold">快充</text>
+            </view>
+            <view>
+              <text class="text-grey">时间：</text>
+              <text class="text-bold">{{item.create_time}}</text>
+            </view>
+          </view>
+          <view class="text-bold text-xl">已完成</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='cu-tabbar-height' />
+</scroll-view>

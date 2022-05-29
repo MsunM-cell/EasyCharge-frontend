@@ -17,9 +17,9 @@
       <image src="/images/tabbar/order{{pageCur=='order'?'-selected':''}}.png"></image>
     </view>
   </view>
-  <view class="action" bindtap="navChange" data-cur="user">
+  <!-- <view class="action" bindtap="navChange" data-cur="user">
     <view class='cuIcon-cu-image'>
       <image src="/images/tabbar/user{{pageCur=='user'?'-selected':''}}.png"></image>
     </view>
-  </view>
+  </view> -->
 </view>

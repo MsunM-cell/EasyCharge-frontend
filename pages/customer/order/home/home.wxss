@@ -1,5 +1,5 @@
-page {
-  width: 100%;
+.order-card {
   background-color: #ffffff;
-
+  border-radius: 20rpx;
+  margin: 5vw;
 }

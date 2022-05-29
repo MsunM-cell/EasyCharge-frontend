@@ -1,11 +1,12 @@
 {
   "pages":[
+    "pages/login/login",
+    "pages/register/register",  
     "pages/customer/index/index",
     "pages/customer/charge/home/home",
     "pages/customer/charge/change/change",
     "pages/customer/order/home/home",
-    "pages/login/login",
-    "pages/register/register",  
+    "pages/customer/order/info/info",
     "pages/admin/index/index",
     "pages/admin/chargeStationList/chargeStationList",
     "pages/admin/stationDetail/stationDetail",

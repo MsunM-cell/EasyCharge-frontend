@@ -1,6 +1,6 @@
 Page({
   data: {
-    pageCur: 'charge',
+    pageCur: 'order',
     pageStatus: 0
   },
 
