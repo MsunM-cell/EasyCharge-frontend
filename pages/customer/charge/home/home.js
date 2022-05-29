@@ -57,7 +57,7 @@ Component({
         "id": 37,
         "status": 0,
         "create_time": "2021-12-31 23:04:32",
-        "mode": 42,
+        "mode": 1,
         "capacity": 92
       }
       this.setData({
@@ -88,6 +88,15 @@ Component({
     getFrontCarNum() {
       // 获取前车等待数量的网络请求
 
+    },
+
+    // 修改充电请求 充电模式or充电量
+    changeChargeRequest() {
+      let capacity = this.data.order.capacity
+      let mode = this.data.order.mode
+      wx.navigateTo({
+        url: '/pages/customer/charge/change/change?capacity=' + capacity + '&mode=' + mode
+      })
     }
   }
 })

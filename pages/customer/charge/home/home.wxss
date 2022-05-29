@@ -40,9 +40,16 @@
   align-items: center;
 }
 
+.change-btn {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 30vh;
+}
+
 .display {
   position: relative;
-  top: 38vh;
+  top: 35vh;
 }
 
 .display-center {

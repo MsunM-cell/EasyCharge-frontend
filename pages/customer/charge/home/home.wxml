@@ -24,6 +24,7 @@
         快充 等候区中...
       </view>
       <view class="time">下单时间：{{order.create_time}}</view>
+      <button class="change-btn cu-btn round bg-blue shadow" bindtap="changeChargeRequest">修改充电请求</button>
       <view class="display flex text-white">
         <view class="flex-sub display-center">
           <view>前车等待数量</view>

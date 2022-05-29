@@ -1,0 +1,19 @@
+<cu-custom bgColor="bg-white" isBack="true">
+  <view class="text-black" slot="content">修改充电请求</view>
+</cu-custom>
+
+<form bindsubmit="submitCharge">
+  <view class="cu-form-group">
+    <view class="text-df text-bold-less margin-right-sm">充电模式</view>
+    <picker bindchange="selectMode" value="{{index}}" range="{{mode}}">
+      <view class="picker">
+        {{mode[index]}}
+      </view>
+    </picker>
+  </view>
+  <view class="cu-form-group">
+    <view class="text-df text-bold-less margin-right-sm">充电量</view>
+    <input name="capacity" value="{{origin_capacity}}" placeholder="请输入请求充电量（度）" />
+  </view>
+  <button class="submit-btn cu-btn round bg-gradual-blue shadow text-df margin-top" form-type="submit">确认修改</button>
+</form>
