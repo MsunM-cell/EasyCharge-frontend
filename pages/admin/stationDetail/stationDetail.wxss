@@ -1,1 +1,75 @@
 /* pages/admin/stationDetail/stationDetail.wxss */
+.headContainer{
+  display: flex;
+   justify-content: center;
+   margin-top: 100rpx  ;
+   flex-direction: column;
+align-items: center;
+}
+
+.headImage {
+  width: 200rpx;
+  height: 200rpx;
+}
+
+.bigText {
+  font-size: 60rpx;
+  font-weight: bold;
+}
+
+.card {
+  border-radius: 20rpx;
+
+  border: 3rpx solid #E0E3DA;
+  box-shadow:5rpx 5rpx 5rpx 5rpx #E0E3DA;
+
+  background-color: #ffffff;
+  margin: 30rpx;
+
+  padding: 30rpx;
+}
+
+.line{
+  background-color:rgba(128, 128, 128, 0.459);
+  height: 3rpx;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10rpx;
+}
+
+.infoItem{
+  margin-top: 15rpx;
+  display: flex;
+  align-items: center;
+}
+.infoItem text{
+  margin-left: 10rpx;
+  font-weight: bold;
+  font-size: 30rpx;
+}
+
+
+
+.cardTitle{
+  font-weight: bold;
+  font-size: 40rpx;
+}
+
+
+.cardItem{
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.block{
+  display:block;
+}
+
+.thinText{
+  color: gray;
+}
+
+.smallerText{
+  font-weight: smaller;
+}

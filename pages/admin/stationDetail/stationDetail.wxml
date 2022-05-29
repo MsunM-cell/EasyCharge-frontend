@@ -1,2 +1,106 @@
 <!--pages/admin/stationDetail/stationDetail.wxml-->
-<text>pages/admin/stationDetail/stationDetail.wxml</text>
+<view class="headContainer">
+  <image src="{{imageSrc}} " class="headImage"></image>
+  <text>ID: {{stationInfo.pointID}}</text>
+  <text class="bigText" style="color: {{m1.status2color(stationInfo.status)}};">{{m1.status2str(stationInfo.status)}}</text>
+</view>
+
+<view class="card">
+  <text class="cardTitle"> 信息</text>
+  <view class="line"></view>
+  <view class="infoItem">
+    <image src="/images/station/type.png" style="width: 60rpx; height: 60rpx;"></image>
+    <text>类型:</text>
+    <text>{{stationInfo.type==1?"快充":"慢充"}}</text>
+  </view>
+  <view class="infoItem">
+    <image src="/images/station/order.png" style="width: 60rpx; height: 60rpx;"></image>
+    <text>服务订单:</text>
+    <text>{{stationInfo.order_id}}</text>
+  </view>
+  <view class="infoItem">
+    <image src="/images/station/chageCnt.png" style="width: 60rpx; height: 60rpx;"></image>
+    <text>充电次数:</text>
+    <text>{{stationInfo.chargeCnt}}</text>
+  </view>
+  <view class="infoItem">
+    <image src="/images/station/time.png" style="width: 60rpx; height: 60rpx;"></image>
+    <text>充电时间:</text>
+    <text>{{stationInfo.charteTime}}</text>
+  </view>
+  <view class="infoItem">
+    <image src="/images/station/chargeElec.png" style="width: 60rpx; height: 60rpx;"></image>
+    <text>充电时间:</text>
+    <text>{{stationInfo.chargeElec}}</text>
+  </view>
+</view>
+
+
+<view class="card">
+  <text class="cardTitle">车辆排队信息</text>
+  <view class="line"></view>
+  <view wx:for="{{carList}}" wx:key="id">
+    <view class="cardItem">
+      <view style="display: flex;">
+        <view style="display: flex; flex-direction: column;">
+          <image src="/images/station/car.png" style="height: 60rpx; width: 60rpx; margin-right: 30rpx;"></image>
+          <text class="thinText">id:{{item.id}}</text>
+        </view>
+        <view>
+          <text class="block">用户名：{{item.username}}</text>
+          <text class="block">车辆电池总容量:{{item.carElecTotal}}</text>
+          <text class="block">请求充电量:{{item.carElecRequest}}</text>
+        </view>
+      </view>
+
+
+      <view style="display: flex; flex-direction: column; justify-content: center;">
+        <text class="thinText smallerText">等待时间</text>
+        <text style="font-weight: bold; font-size: large; margin-top: 10rpx;">{{item.carWaitTime}}</text>
+      </view>
+    </view>
+
+    <view class="line"></view>
+  </view>
+</view>
+
+
+<button type="{{m1.getButtonType(stationInfo.status)}}" bindtap="switchStationStatus"> {{m1.getButtonText(stationInfo.status)}}</button>
+
+<wxs module="m1">
+  module.exports.status2str = function (status) {
+    if (status == 0) {
+      return "充电中";
+    } else if (status == 1) {
+      return "空闲";
+    } else {
+      return "关闭";
+    }
+  }
+  module.exports.status2color = function (status) {
+    if (status == 0) {
+      return "#58D68D";
+    } else if (status == 1) {
+      return "#85C1E9";
+    } else {
+      return "#808B96";
+    }
+  }
+
+
+  module.exports.getButtonType = function (status) {
+    if (status == 0 || status == 1) {
+      return "warn"
+    } else {
+      return "primary";
+    }
+  }
+
+  module.exports.getButtonText = function (status) {
+    if (status == 0 || status == 1) {
+      return "关闭充电桩"
+    } else {
+      return "开启充电桩";
+    }
+  }
+</wxs>

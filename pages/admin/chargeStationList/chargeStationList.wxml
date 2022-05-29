@@ -13,6 +13,7 @@
         <view>
           <text class="text_small">ID:{{item.pointID}}</text>
         </view>
+        
         <view>
           <text class="text_small">{{item.type==1?"快充":"慢充"}}</text>
         </view>
