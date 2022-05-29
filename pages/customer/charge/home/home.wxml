@@ -40,5 +40,27 @@
         </view>
       </view>
     </view>
+
+    <view wx:if="{{order.status==1}}">
+      <view class="status">
+        快充 充电区排队中...
+      </view>
+      <view class="time">下单时间：{{order.create_time}}</view>
+      <button class="change-btn cu-btn round bg-blue shadow" bindtap="changeChargeRequest">取消充电</button>
+      <view class="display flex text-white">
+        <view class="flex-sub display-center">
+          <view>充电桩编号</view>
+          <view class="text-bold text-xxl margin-top">1</view>
+        </view>
+        <view class="flex-sub display-center">
+          <view>排队号码</view>
+          <view class="text-bold text-xxl margin-top">8</view>
+        </view>
+        <view class="flex-sub display-center">
+          <view>请求充电量</view>
+          <view class="text-bold text-xxl margin-top">80</view>
+        </view>
+      </view>
+    </view>
   </view>
 </scroll-view>

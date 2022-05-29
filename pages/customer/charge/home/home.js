@@ -55,7 +55,7 @@ Component({
       // 测试
       let order = {
         "id": 37,
-        "status": 0,
+        "status": 1,
         "create_time": "2021-12-31 23:04:32",
         "mode": 1,
         "capacity": 92
