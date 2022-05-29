@@ -1,0 +1,9 @@
+<scroll-view scroll-y class="scrollPage">
+  <image src='https://w.wallhaven.cc/full/y8/wallhaven-y8gp9d.jpg' mode='widthFix' class='png' style='width:100%' />
+  <image src='https://w.wallhaven.cc/full/l3/wallhaven-l3k1dl.jpg' mode='widthFix' class='png' style='width:100%' />
+  <view class="card padding shadow -gray flex">
+    <view class="flex-sub text-center">aa</view>
+    <view class="flex-sub">bb</view>
+  </view>
+  <view class='cu-tabbar-height' />
+</scroll-view>

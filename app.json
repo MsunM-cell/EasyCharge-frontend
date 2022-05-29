@@ -1,8 +1,9 @@
 {
-  "pages":[
+  "pages":["pages/customer/index/index",
     "pages/login/login",
     "pages/register/register",
-    "pages/customer/index/index",
+    
+    "pages/customer/charge/home/home",
     "pages/admin/index/index"
   ],
   "window":{

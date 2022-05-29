@@ -1,2 +1,24 @@
-<!--pages/customer/index/index.wxml-->
-<text>pages/customer/index/index.wxml</text>
+<!-- <basics wx:if="{{PageCur=='basics'}}"></basics>
+<component wx:if="{{PageCur=='component'}}"></component>
+<plugin wx:if="{{PageCur=='plugin'}}"></plugin>
+<about wx:if="{{PageCur=='about'}}"></about> -->
+
+<charge wx:if="{{pageCur=='charge'}}"></charge>
+
+<view class="cu-bar tabbar bg-white shadow foot" style="border-radius:40rpx">
+  <view class="action" bindtap="navChange" data-cur="charge">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/tabbar/charge{{pageCur=='charge'?'-selected':''}}.png"></image>
+    </view>
+  </view>
+  <view class="action" bindtap="navChange" data-cur="order">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/tabbar/order{{pageCur=='order'?'-selected':''}}.png"></image>
+    </view>
+  </view>
+  <view class="action" bindtap="navChange" data-cur="user">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/tabbar/user{{pageCur=='user'?'-selected':''}}.png"></image>
+    </view>
+  </view>
+</view>
