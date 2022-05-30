@@ -1,3 +1,5 @@
+const app = getApp()
+
 Page({
   data: {
     index: 0,
@@ -57,6 +59,95 @@ Page({
       return
     }
 
-    // 注册的网络请求
+    if (this.data.index === 0) // 注册普通用户
+      this.registerCustomer(username, password)
+    else // 注册管理员
+      this.registerAdmin(username, password)
+  },
+
+  registerCustomer(username, password) {
+    // 网络请求
+    wx.request({
+      url: app.globalData.server + '/users/register',
+      method: 'POST',
+      data: {
+        username: username,
+        password: password
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      success(res) {
+        if (res.statusCode == 200) {
+          // 用户名已存在
+          if (res.data.code === -2) {
+            wx.showToast({
+              title: '用户名已存在',
+              icon: 'error'
+            })
+          } else if (res.data.code === 200) {
+            wx.showToast({
+              title: '注册成功',
+              icon: 'success'
+            })
+            // 返回登录页面
+            setTimeout(function () {
+              wx.navigateBack({
+                delta: 1
+              })
+            }, 500)
+          }
+        }
+      },
+      fail(err) {
+        wx.showToast({
+          title: '网络异常',
+          icon: 'error'
+        })
+      }
+    })
+  },
+
+  registerAdmin(adminname, password) {
+    // 网络请求
+    wx.request({
+      url: app.globalData.server + '/admin/register',
+      method: 'POST',
+      data: {
+        adminname: adminname,
+        password: password
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      success(res) {
+        if (res.statusCode == 200) {
+          // 用户名已存在
+          if (res.data.code === -2) {
+            wx.showToast({
+              title: '用户名已存在',
+              icon: 'error'
+            })
+          } else if (res.data.code === 200) {
+            wx.showToast({
+              title: '注册成功',
+              icon: 'success'
+            })
+            // 返回登录页面
+            setTimeout(function () {
+              wx.navigateBack({
+                delta: 1
+              })
+            }, 500)
+          }
+        }
+      },
+      fail(err) {
+        wx.showToast({
+          title: '网络异常',
+          icon: 'error'
+        })
+      }
+    })
   }
 })

@@ -31,9 +31,10 @@ App({
     })
   },
   globalData: {
+    server: '',
     managerId:'',
     customer: {
-      order_id: null
+      order_id: 1
     }
   }
 })
