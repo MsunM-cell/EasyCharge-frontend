@@ -7,13 +7,20 @@ Component({
 
   data: {
     triggered: false,
-    order_id: null,
-    order: {}
+    customer: {},
+    order: {},
+    frontCarNum: null,
+    queuePos: null,
+    chargeInfo: {},
+    orderDetails: {}
   },
 
   lifetimes: {
     // 在组件实例进入页面节点树时执行
     attached: function () {
+      this.setData({
+        customer: app.globalData.customer
+      })
       // 检查当前用户充电状态
       this.checkStatus()
     },
@@ -40,17 +47,44 @@ Component({
     },
 
     checkStatus() {
-      if (app.globalData.customer.order_id) {
-        this.setData({
-          order_id: app.globalData.customer.order_id
-        })
+      if (this.data.customer.order_id) {
         // 获取订单信息
         this.getOrderInfo()
       }
     },
 
     getOrderInfo() {
-      // 获取订单信息的网络请求
+      // let id = this.data.customer.order_id
+      // let token = this.data.customer.token
+      // let that = this
+      // // 获取订单信息的网络请求
+      // wx.request({
+      //   url: app.globalData.server + '/orders/' + id,
+      //   method: 'GET',
+      //   data: {
+      //     token: token
+      //   },
+      //   header: {
+      //     'content-type': 'application/json'
+      //   },
+      //   success(res) {
+      //     if (res.statusCode === 200) {
+      //       if (res.data.code === 200) {
+      //         that.setData({
+      //           order: res.data.order
+      //         })
+      //         // 检查当前用户的订单状态
+      //         that.checkOrderStatus()
+      //       }
+      //     }
+      //   },
+      //   fail(err) {
+      //     wx.showToast({
+      //       title: '网络异常',
+      //       icon: 'error'
+      //     })
+      //   }
+      // })
 
       // 测试
       let order = {
@@ -63,18 +97,36 @@ Component({
       this.setData({
         order: order
       })
-      // 检查当前用户的订单状态
+
       this.checkOrderStatus()
     },
 
     checkOrderStatus() {
       let order_status = this.data.order.status
       switch (order_status) {
-        // 等候区
-        case 0:
+        case 0: // 等候区
           // 获取前车等待数量
           this.getFrontCarNum()
+          // 获取排队号码
+          this.getQueuePos()
           break
+        case 1: // 排队中
+          // 获取前车等待数量
+          this.getFrontCarNum()
+          // 获取排队号码
+          this.getQueuePos()
+          // 获取充电信息
+          this.getChargeInfo()
+          break
+        case 2: // 充电中
+          // 获取排队号码
+          this.getQueuePos()
+          // 获取充电信息
+          this.getChargeInfo()
+          break
+        case 3: // 待支付
+          // 获取充电详单
+          this.getOrderDetails()
       }
     },
 
@@ -86,8 +138,170 @@ Component({
     },
 
     getFrontCarNum() {
-      // 获取前车等待数量的网络请求
+      // let orderId = this.data.order.id
+      // let that = this
+      // // 获取前车等待数量的网络请求
+      // wx.request({
+      //   url: app.globalData.server + '/order/getFrontCarNum',
+      //   method: 'GET',
+      //   data: {
+      //     token: token,
+      //     orderId: orderId
+      //   },
+      //   header: {
+      //     'content-type': 'application/json'
+      //   },
+      //   success(res) {
+      //     if (res.statusCode === 200) {
+      //       if (res.data.code === 200) {
+      //         that.setData({
+      //           frontCarNum: res.data.num
+      //         })
+      //       }
+      //     }
+      //   },
+      //   fail(err) {
+      //     wx.showToast({
+      //       title: '网络异常',
+      //       icon: 'error'
+      //     })
+      //   }
+      // })
 
+      // 测试
+      this.setData({
+        frontCarNum: 11
+      })
+    },
+
+    getQueuePos() {
+      // let orderId = this.data.order.id
+      // let that = this
+      // // 获取排队号码的网络请求
+      // wx.request({
+      //   url: app.globalData.server + '/order/getQueuePos',
+      //   method: 'GET',
+      //   data: {
+      //     token: token,
+      //     orderId: orderId
+      //   },
+      //   header: {
+      //     'content-type': 'application/json'
+      //   },
+      //   success(res) {
+      //     if (res.statusCode === 200) {
+      //       if (res.data.code === 200) {
+      //         that.setData({
+      //           queuePos: res.data.queuepos
+      //         })
+      //       }
+      //     }
+      //   },
+      //   fail(err) {
+      //     wx.showToast({
+      //       title: '网络异常',
+      //       icon: 'error'
+      //     })
+      //   }
+      // })
+
+      // 测试
+      this.setData({
+        queuePos: 10
+      })
+    },
+
+    getChargeInfo() {
+      // let id = this.data.order.id
+      // let token = this.data.customer.token
+      // let that = this
+      // // 获取订单信息的网络请求
+      // wx.request({
+      //   url: app.globalData.server + '/orders/charge/' + id,
+      //   method: 'GET',
+      //   data: {
+      //     token: token
+      //   },
+      //   header: {
+      //     'content-type': 'application/json'
+      //   },
+      //   success(res) {
+      //     if (res.statusCode === 200) {
+      //       if (res.data.code === 200) {
+      //         that.setData({
+      //           chargeInfo: res.data.charge
+      //         })
+      //       }
+      //     }
+      //   },
+      //   fail(err) {
+      //     wx.showToast({
+      //       title: '网络异常',
+      //       icon: 'error'
+      //     })
+      //   }
+      // })
+
+      // 测试
+      this.setData({
+        chargeInfo: {
+          "station": 60,
+          "capacity_cost": 17,
+          "cost": 64,
+          "start_time": "1994-12-23 08:51:21",
+          "service_cost": 39,
+          "capacity": 67,
+          "time": "01:13:45"
+        }
+      })
+    },
+
+    getOrderDetails() {
+      // let id = this.data.order.id
+      // let token = this.data.customer.token
+      // let that = this
+      // // 获取充电详单的网络请求
+      // wx.request({
+      //   url: app.globalData.server + '/orders/charge/' + id,
+      //   method: 'GET',
+      //   data: {
+      //     token: token
+      //   },
+      //   header: {
+      //     'content-type': 'application/json'
+      //   },
+      //   success(res) {
+      //     if (res.statusCode === 200) {
+      //       if (res.data.code === 200) {
+      //         that.setData({
+      //           orderDetails: res.data.order_detail
+      //         })
+      //       }
+      //     }
+      //   },
+      //   fail(err) {
+      //     wx.showToast({
+      //       title: '网络异常',
+      //       icon: 'error'
+      //     })
+      //   }
+      // })
+
+      // 测试
+      this.setData({
+        orderDetails: {
+          "id": 62,
+          "creatTime": "2000-09-13 19:54:55",
+          "chargeCapacity": 1992,
+          "totaltime": "20:37:27",
+          "startTime": "1997-04-25 01:37:46",
+          "endTime": "1992-12-22 06:26:43",
+          "chargeId": 11,
+          "capCost": 3,
+          "serveCost": 44,
+          "cost": 35
+        }
+      })
     },
 
     // 修改充电请求 充电模式or充电量

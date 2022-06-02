@@ -1,4 +1,4 @@
-<scroll-view wx:if="{{!order_id}}" scroll-y class="scrollPage" refresher-enabled="true" refresher-default-style="none" refresher-triggered="{{triggered}}" bindrefresherrefresh="onRefresh">
+<scroll-view wx:if="{{!customer.order_id}}" scroll-y class="scrollPage" refresher-enabled="true" refresher-default-style="none" refresher-triggered="{{triggered}}" bindrefresherrefresh="onRefresh">
   <view class="cover">
     <image src="https://wx3.sinaimg.cn/mw2000/0084vph8ly1h2pqkt875cj31pd313kfb.jpg" mode="heightFix" style="height:100vh" />
   </view>
@@ -27,98 +27,127 @@
   </view>
 </scroll-view>
 
-<scroll-view wx:elif="{{order_id}}" scroll-y class="scrollPage" refresher-enabled="true" refresher-default-style="none" refresher-triggered="{{triggered}}" bindrefresherrefresh="onRefresh">
+<scroll-view wx:elif="{{customer.order_id}}" scroll-y class="scrollPage" refresher-enabled="true" refresher-default-style="none" refresher-triggered="{{triggered}}" bindrefresherrefresh="onRefresh">
   <view class="cover">
     <image src="https://wx3.sinaimg.cn/mw2000/0084vph8ly1h2pqkt875cj31pd313kfb.jpg" mode="heightFix" style="height:100vh" />
   </view>
   <view class="layout">
     <view wx:if="{{order.status==0}}">
       <view class="status">
-        快充 等候区中...
+        {{order.mode===0?'快充':'慢充'}} 等候区中...
       </view>
       <view class="time">下单时间：{{order.create_time}}</view>
       <button class="change-btn cu-btn round bg-blue shadow" bindtap="changeChargeRequest">修改充电请求</button>
       <view class="display flex text-white">
         <view class="flex-sub display-center">
           <view>前车等待数量</view>
-          <view class="text-bold text-xxl margin-top">10</view>
+          <view class="text-bold text-xxl margin-top">{{frontCarNum}}</view>
         </view>
         <view class="flex-sub display-center">
           <view>排队号码</view>
-          <view class="text-bold text-xxl margin-top">8</view>
+          <view class="text-bold text-xxl margin-top">{{queuePos}}</view>
         </view>
         <view class="flex-sub display-center">
           <view>请求充电量</view>
-          <view class="text-bold text-xxl margin-top">80</view>
+          <view class="text-bold text-xxl margin-top">{{order.capacity}}</view>
         </view>
       </view>
     </view>
 
     <view wx:if="{{order.status==1}}">
       <view class="status">
-        快充 充电区排队中...
+        {{order.mode===0?'快充':'慢充'}} 充电区排队中...
       </view>
       <view class="time">下单时间：{{order.create_time}}</view>
       <button class="change-btn cu-btn round bg-blue shadow" bindtap="changeChargeRequest">取消充电</button>
       <view class="display flex text-white">
         <view class="flex-sub display-center">
           <view>充电桩编号</view>
-          <view class="text-bold text-xxl margin-top">1</view>
+          <view class="text-bold text-xxl margin-top">{{chargeInfo.station}}</view>
         </view>
         <view class="flex-sub display-center">
           <view>排队号码</view>
-          <view class="text-bold text-xxl margin-top">8</view>
+          <view class="text-bold text-xxl margin-top">{{queuePos}}</view>
         </view>
         <view class="flex-sub display-center">
           <view>请求充电量</view>
-          <view class="text-bold text-xxl margin-top">80</view>
+          <view class="text-bold text-xxl margin-top">{{order.capacity}}</view>
         </view>
       </view>
     </view>
 
     <view wx:if="{{order.status==2}}">
       <view class="center">
-        <text class="text-xxl text-bold margin-right-sm">快充</text>
+        <text class="text-xxl text-bold margin-right-sm">{{order.mode===0?'快充':'慢充'}}</text>
         <text class="text-xxl margin-right-sm">已充</text>
-        <text class="text-bold text-super margin-right-sm">23</text>
+        <text class="text-bold text-super margin-right-sm">{{chargeInfo.capacity}}</text>
         <text>度</text>
       </view>
-      <view class="time">开始时间：{{order.create_time}}</view>
-      <button class="center cu-btn round bg-blue shadow" style="position:relative;top:24vh" bindtap="changeChargeRequest">取消充电</button>
-      <view class="flex text-white" style="position:relative;top:30vh">
+      <view class="time">开始充电：{{chargeInfo.start_time}}</view>
+      <button class="center cu-btn round bg-blue shadow" style="position:relative;top:22vh" bindtap="changeChargeRequest">取消充电</button>
+      <view class="flex text-white" style="position:relative;top:24vh">
         <view class="flex-sub display-center">
-          <view>时间（分）</view>
-          <view class="text-bold text-xxl margin-top">26</view>
+          <view>充电桩编号</view>
+          <view class="text-bold text-xxl margin-top">{{chargeInfo.station}}</view>
         </view>
         <view class="flex-sub display-center">
-          <view>金额（元）</view>
-          <view class="text-bold text-xxl margin-top">8</view>
+          <view>已充时间</view>
+          <view class="text-bold text-xxl margin-top">{{chargeInfo.time}}</view>
         </view>
         <view class="flex-sub display-center">
           <view>请求充电量（度）</view>
-          <view class="text-bold text-xxl margin-top">80</view>
+          <view class="text-bold text-xxl margin-top">{{order.capacity}}</view>
+        </view>
+      </view>
+      <view class="flex text-white" style="position:relative;top:26vh">
+        <view class="flex-sub display-center">
+          <view>服务费用（元）</view>
+          <view class="text-bold text-xxl margin-top">{{chargeInfo.service_cost}}</view>
+        </view>
+        <view class="flex-sub display-center">
+          <view>充电费用（元）</view>
+          <view class="text-bold text-xxl margin-top">{{chargeInfo.capacity_cost}}</view>
+        </view>
+        <view class="flex-sub display-center">
+          <view>总费用（元）</view>
+          <view class="text-bold text-xxl margin-top">{{chargeInfo.cost}}</view>
         </view>
       </view>
     </view>
 
     <view wx:if="{{order.status==3}}">
-      <view class="status">
-        快充 充电已完成
+      <view class="center">
+        <text class="text-xxl text-bold margin-right-sm">{{order.mode===0?'快充':'慢充'}}</text>
+        <text class="text-xsl margin-right-sm">充电完成</text>
       </view>
-      <view class="time">结束时间：{{order.create_time}}</view>
-      <button class="change-btn cu-btn round bg-blue shadow" bindtap="changeChargeRequest">支付订单</button>
-      <view class="display flex text-white">
+      <view class="time">结束充电：{{orderDetails.endTime}}</view>
+      <button class="center cu-btn round bg-blue shadow" style="position:relative;top:23vh" bindtap="changeChargeRequest">支付订单</button>
+      <view class="flex text-white" style="position:relative;top:24vh">
         <view class="flex-sub display-center">
-          <view>时间（分）</view>
-          <view class="text-bold text-xxl margin-top">26</view>
+          <view>充电桩编号</view>
+          <view class="text-bold text-xxl margin-top">{{orderDetails.chargeId}}</view>
         </view>
         <view class="flex-sub display-center">
-          <view>金额（元）</view>
-          <view class="text-bold text-xxl margin-top">8</view>
+          <view>充电时长</view>
+          <view class="text-bold text-xxl margin-top">{{orderDetails.totaltime}}</view>
         </view>
         <view class="flex-sub display-center">
-          <view>本次充电量（度）</view>
-          <view class="text-bold text-xxl margin-top">80</view>
+          <view>充电电量（度）</view>
+          <view class="text-bold text-xxl margin-top">{{orderDetails.chargeCapacity}}</view>
+        </view>
+      </view>
+      <view class="flex text-white" style="position:relative;top:26vh">
+        <view class="flex-sub display-center">
+          <view>服务费用（元）</view>
+          <view class="text-bold text-xxl margin-top">{{orderDetails.serveCost}}</view>
+        </view>
+        <view class="flex-sub display-center">
+          <view>充电费用（元）</view>
+          <view class="text-bold text-xxl margin-top">{{orderDetails.capCost}}</view>
+        </view>
+        <view class="flex-sub display-center">
+          <view>总费用（元）</view>
+          <view class="text-bold text-xxl margin-top">{{orderDetails.cost}}</view>
         </view>
       </view>
     </view>
