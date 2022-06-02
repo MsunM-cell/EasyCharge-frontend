@@ -15,7 +15,7 @@
       <text class="text-grey">订单id</text>
     </view>
     <view class="action">
-      <text class="text-grey">12</text>
+      <text class="text-grey">{{order.id}}</text>
     </view>
   </view>
   <view class="cu-item">
@@ -24,7 +24,12 @@
       <text class="text-grey">订单状态</text>
     </view>
     <view class="action">
-      <text class="text-grey">待支付</text>
+      <text wx:if="{{order.status==0}}" class="text-grey">等待中</text>
+      <text wx:if="{{order.status==1}}" class="text-grey">排队中</text>
+      <text wx:if="{{order.status==2}}" class="text-grey">充电中</text>
+      <text wx:if="{{order.status==3}}" class="text-grey">待支付</text>
+      <text wx:if="{{order.status==4}}" class="text-grey">已支付</text>
+      <text wx:if="{{order.status==5}}" class="text-grey">已取消</text>
     </view>
   </view>
   <view class="cu-item">
@@ -33,7 +38,7 @@
       <text class="text-grey">订单生成时间</text>
     </view>
     <view class="action">
-      <text class="text-grey">2021 10.28</text>
+      <text class="text-grey">{{order.createTime}}</text>
     </view>
   </view>
   <view class="cu-item">
@@ -42,7 +47,7 @@
       <text class="text-grey">充电模式</text>
     </view>
     <view class="action">
-      <text class="text-grey">快充</text>
+      <text class="text-grey">{{order.mode==0?'快充':'慢充'}}</text>
     </view>
   </view>
   <view class="cu-item">
@@ -51,12 +56,12 @@
       <text class="text-grey">请求充电量</text>
     </view>
     <view class="action">
-      <text class="text-grey">100 度</text>
+      <text class="text-grey">{{order.capacity}} 度</text>
     </view>
   </view>
 </view>
 
-<view class="cu-list menu card-menu margin-top">
+<view wx:if="{{have_order_details}}" class="cu-list menu card-menu margin-top">
   <view class="cu-item">
     <view class="content">
       <text class="cuIcon-edit text-green"></text>
@@ -69,7 +74,16 @@
       <text class="text-grey">充电桩id</text>
     </view>
     <view class="action">
-      <text class="text-grey">12</text>
+      <text class="text-grey">{{order_details.chargeId}}</text>
+    </view>
+  </view>
+  <view class="cu-item">
+    <view class="content">
+      <text class="cuIcon-time text-green"></text>
+      <text class="text-grey">充电时长</text>
+    </view>
+    <view class="action">
+      <text class="text-grey">{{order_details.totaltime}}</text>
     </view>
   </view>
   <view class="cu-item">
@@ -78,7 +92,7 @@
       <text class="text-grey">充电开始时间</text>
     </view>
     <view class="action">
-      <text class="text-grey">待支付</text>
+      <text class="text-grey">{{order_details.startTime}}</text>
     </view>
   </view>
   <view class="cu-item">
@@ -87,7 +101,7 @@
       <text class="text-grey">充电结束时间</text>
     </view>
     <view class="action">
-      <text class="text-grey">2021 10.28</text>
+      <text class="text-grey">{{order_details.endTime}}</text>
     </view>
   </view>
   <view class="cu-item">
@@ -96,7 +110,25 @@
       <text class="text-grey">已充电量</text>
     </view>
     <view class="action">
-      <text class="text-grey">快充</text>
+      <text class="text-grey">{{chargeCapacity}} 度</text>
+    </view>
+  </view>
+  <view class="cu-item">
+    <view class="content">
+      <text class="cuIcon-recharge text-green"></text>
+      <text class="text-grey">充电金额</text>
+    </view>
+    <view class="action">
+      <text class="text-grey">{{order_details.capCost}} 元</text>
+    </view>
+  </view>
+  <view class="cu-item">
+    <view class="content">
+      <text class="cuIcon-recharge text-green"></text>
+      <text class="text-grey">服务金额</text>
+    </view>
+    <view class="action">
+      <text class="text-grey">{{order_details.serveCost}} 元</text>
     </view>
   </view>
   <view class="cu-item">
@@ -105,7 +137,9 @@
       <text class="text-grey">总金额</text>
     </view>
     <view class="action">
-      <text class="text-grey">100 度</text>
+      <text class="text-grey">{{order_details.cost}} 元</text>
     </view>
   </view>
 </view>
+
+<view style="height: 10vh;"></view>

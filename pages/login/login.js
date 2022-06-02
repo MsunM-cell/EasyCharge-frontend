@@ -46,9 +46,9 @@ Page({
               title: '登录成功',
               icon: 'success'
             })
-            wx.setStorageSync('customer', true)
-            wx.setStorageSync('token', res.data.token)
-            wx.setStorageSync('id', res.data.id)
+            app.globalData.customer.id = res.data.id
+            app.globalData.customer.order_id = res.data.orderId
+            app.globalData.customer.token = res.data.token
             // 进入用户页面
             setTimeout(function () {
               wx.navigateTo({
@@ -92,9 +92,9 @@ Page({
               title: '登录成功',
               icon: 'success'
             })
-            wx.setStorageSync('admin', true)
-            wx.setStorageSync('token', res.data.token)
-            wx.setStorageSync('id', res.data.manageID)
+            // wx.setStorageSync('admin', true)
+            // wx.setStorageSync('token', res.data.token)
+            // wx.setStorageSync('id', res.data.manageID)
             // 进入管理员页面
             setTimeout(function () {
               wx.navigateTo({

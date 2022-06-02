@@ -4,7 +4,7 @@
 
 <scroll-view scroll-y class="scrollPage" refresher-enabled="true" refresher-default-style="none" refresher-triggered="{{triggered}}" bindrefresherrefresh="onRefresh">
   <view wx:for="{{orders}}">
-    <view class="order-card shadow -gray padding-sm">
+    <view class="order-card shadow -gray padding-sm" data-index="{{index}}" bindtap="getOrder">
       <view class="padding-bottom-xs solid-bottom">
         <text class="text-grey">订单id：</text>
         <text class="text-bold">{{item.id}}</text>
@@ -22,14 +22,21 @@
           <view>
             <view>
               <text class="text-grey">模式：</text>
-              <text class="text-bold">快充</text>
+              <text class="text-bold">{{item.mode==0?'快充':'慢充'}}</text>
             </view>
             <view>
               <text class="text-grey">时间：</text>
               <text class="text-bold">{{item.create_time}}</text>
             </view>
           </view>
-          <view class="text-bold text-xl">已完成</view>
+          <view class="text-bold text-xl">
+            <text wx:if="{{item.status==0}}">等待中</text>
+            <text wx:if="{{item.status==1}}">排队中</text>
+            <text wx:if="{{item.status==2}}">充电中</text>
+            <text wx:if="{{item.status==3}}">待支付</text>
+            <text wx:if="{{item.status==4}}">已支付</text>
+            <text wx:if="{{item.status==5}}">已取消</text>
+          </view>
         </view>
       </view>
     </view>
