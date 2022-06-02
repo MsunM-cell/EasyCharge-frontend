@@ -8,7 +8,7 @@
         <view>欢迎来到</view>
         <view>e充电 客户端！</view>
       </view>
-      <button class="change-btn cu-btn round bg-blue shadow" bindtap="changeChargeRequest">我要充电</button>
+      <button class="change-btn cu-btn round bg-blue shadow" bindtap="startCharge">我要充电</button>
       <view class="display flex text-white">
         <view class="flex-sub display-center">
           <view>快充电桩</view>
@@ -59,7 +59,7 @@
         {{order.mode===0?'快充':'慢充'}} 充电区排队中...
       </view>
       <view class="time">下单时间：{{order.create_time}}</view>
-      <button class="change-btn cu-btn round bg-blue shadow" bindtap="changeChargeRequest">取消充电</button>
+      <button class="change-btn cu-btn round bg-blue shadow" bindtap="cancelCharge">取消充电</button>
       <view class="display flex text-white">
         <view class="flex-sub display-center">
           <view>充电桩编号</view>
@@ -84,7 +84,7 @@
         <text>度</text>
       </view>
       <view class="time">开始充电：{{chargeInfo.start_time}}</view>
-      <button class="center cu-btn round bg-blue shadow" style="position:relative;top:22vh" bindtap="changeChargeRequest">取消充电</button>
+      <button class="center cu-btn round bg-blue shadow" style="position:relative;top:22vh" bindtap="cancelCharge">取消充电</button>
       <view class="flex text-white" style="position:relative;top:24vh">
         <view class="flex-sub display-center">
           <view>充电桩编号</view>
@@ -121,7 +121,7 @@
         <text class="text-xsl margin-right-sm">充电完成</text>
       </view>
       <view class="time">结束充电：{{orderDetails.endTime}}</view>
-      <button class="center cu-btn round bg-blue shadow" style="position:relative;top:23vh" bindtap="changeChargeRequest">支付订单</button>
+      <button class="center cu-btn round bg-blue shadow" style="position:relative;top:23vh" bindtap="payCharge">支付订单</button>
       <view class="flex text-white" style="position:relative;top:24vh">
         <view class="flex-sub display-center">
           <view>充电桩编号</view>

@@ -46,6 +46,13 @@ Component({
       }, 500)
     },
 
+    // 开始充电
+    startCharge() {
+      wx.navigateTo({
+        url: '/pages/customer/charge/order/order'
+      })
+    },
+
     checkStatus() {
       if (this.data.customer.order_id) {
         // 获取订单信息
@@ -128,13 +135,6 @@ Component({
           // 获取充电详单
           this.getOrderDetails()
       }
-    },
-
-    // 开始充电
-    startCharge() {
-      wx.navigateTo({
-        url: '/pages/customer/charge/order/order'
-      })
     },
 
     getFrontCarNum() {
@@ -310,6 +310,78 @@ Component({
       let mode = this.data.order.mode
       wx.navigateTo({
         url: '/pages/customer/charge/change/change?capacity=' + capacity + '&mode=' + mode
+      })
+    },
+
+    // 取消充电
+    cancelCharge() {
+      let id = this.data.order.id
+      wx.request({
+        url: app.globalData.server + '/orders/cancel/' + id,
+        method: 'PUT',
+        data: {
+          token: app.globalData.customer.token
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+        success(res) {
+          if (res.statusCode == 200) {
+            if (res.data.code == 200) {
+              wx.showToast({
+                title: '取消成功',
+                icon: 'success'
+              })
+              setTimeout(function () {
+                wx.navigateTo({
+                  url: '/pages/customer/index/index'
+                })
+              }, 500)
+            }
+          }
+        },
+        fail(err) {
+          wx.showToast({
+            title: '网络异常',
+            icon: 'error'
+          })
+        }
+      })
+    },
+
+    // 支付订单
+    payCharge() {
+      let id = this.data.order.id
+      wx.request({
+        url: app.globalData.server + '/orders/pay/' + id,
+        method: 'PUT',
+        data: {
+          token: app.globalData.customer.token
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+        success(res) {
+          if (res.statusCode == 200) {
+            if (res.data.code == 200) {
+              wx.showToast({
+                title: '支付成功',
+                icon: 'success'
+              })
+              setTimeout(function () {
+                wx.navigateTo({
+                  url: '/pages/customer/index/index'
+                })
+              }, 500)
+            }
+          }
+        },
+        fail(err) {
+          wx.showToast({
+            title: '网络异常',
+            icon: 'error'
+          })
+        }
       })
     }
   }
