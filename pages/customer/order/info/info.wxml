@@ -110,7 +110,7 @@
       <text class="text-grey">已充电量</text>
     </view>
     <view class="action">
-      <text class="text-grey">{{chargeCapacity}} 度</text>
+      <text class="text-grey">{{order_details.chargeCapacity}} 度</text>
     </view>
   </view>
   <view class="cu-item">

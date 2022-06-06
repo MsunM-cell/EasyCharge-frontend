@@ -84,6 +84,7 @@ Page({
 
   changeMode() {
     let mode = this.data.index
+    let id = app.globalData.customer.order_id
     // 修改充电模式的网络请求
     wx.request({
       url: app.globalData.server + '/orders/mode/' + id,

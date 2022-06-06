@@ -31,7 +31,7 @@ App({
     })
   },
   globalData: {
-    server: '',
+    server: 'http://47.101.68.67:5000',
     managerId: '',
     customer: {
       order_id: 10

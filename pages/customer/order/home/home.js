@@ -7,48 +7,13 @@ Component({
 
   data: {
     triggered: false,
-    orders: [{
-      "id": 91,
-      "status": 0,
-      "create_time": "2022-01-10 13:41:44",
-      "mode": 0,
-      "capacity": 45
-    }, {
-      "id": 91,
-      "status": 1,
-      "create_time": "2022-01-10 13:41:44",
-      "mode": 0,
-      "capacity": 45
-    }, {
-      "id": 91,
-      "status": 2,
-      "create_time": "2022-01-10 13:41:44",
-      "mode": 8,
-      "capacity": 45
-    }, {
-      "id": 91,
-      "status": 3,
-      "create_time": "2022-01-10 13:41:44",
-      "mode": 1,
-      "capacity": 45
-    }, {
-      "id": 91,
-      "status": 4,
-      "create_time": "2022-01-10 13:41:44",
-      "mode": 1,
-      "capacity": 45
-    }, {
-      "id": 91,
-      "status": 5,
-      "create_time": "2022-01-10 13:41:44",
-      "mode": 1,
-      "capacity": 45
-    }]
+    orders: []
   },
 
   lifetimes: {
     // 在组件实例进入页面节点树时执行
     attached: function () {
+      console.log('order')
       // 获取当前用户的全部订单
       this.getAllOrders()
     },
@@ -63,6 +28,7 @@ Component({
       if (this._freshing) return
       this._freshing = true
       wx.showLoading()
+      this.getAllOrders()
       setTimeout(() => {
         wx.hideLoading()
         this.setData({
@@ -73,11 +39,10 @@ Component({
     },
 
     getAllOrders() {
-      let id = app.globalData.customer.id
       let that = this
       // 获取订单的网络请求
       wx.request({
-        url: app.globalData.server + '/orders?user=' + id,
+        url: app.globalData.server + '/orders',
         method: 'GET',
         data: {
           token: app.globalData.customer.token
@@ -86,6 +51,7 @@ Component({
           'content-type': 'application/json'
         },
         success(res) {
+          console.log(res)
           if (res.statusCode == 200) {
             if (res.data.code == 200) {
               that.setData({

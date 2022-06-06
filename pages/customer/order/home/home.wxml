@@ -26,7 +26,7 @@
             </view>
             <view>
               <text class="text-grey">时间：</text>
-              <text class="text-bold">{{item.create_time}}</text>
+              <text class="text-bold">{{item.creatTime}}</text>
             </view>
           </view>
           <view class="text-bold text-xl">
