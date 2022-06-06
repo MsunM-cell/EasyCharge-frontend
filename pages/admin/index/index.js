@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    pageCur : "chargeStationList",
+    pageStatus: 0
   },
 
   /**
@@ -62,5 +63,11 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  navChange(e) {
+    this.setData({
+      pageCur: e.currentTarget.dataset.cur
+    })
   }
 })

@@ -10,7 +10,10 @@
     "pages/admin/index/index",
     "pages/admin/chargeStationList/chargeStationList",
     "pages/admin/stationDetail/stationDetail",
+    "pages/admin/report/report",
     "pages/customer/charge/order/order"
+    
+    
   ],
   "window":{
     "backgroundTextStyle":"light",

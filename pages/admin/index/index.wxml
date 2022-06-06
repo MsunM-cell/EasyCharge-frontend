@@ -1,2 +1,21 @@
 <!--pages/admin/index/index.wxml-->
-<text>pages/admin/index/index.wxml</text>
+<chargeStationList wx:if="{{pageCur=='chargeStationList'}}"></chargeStationList>
+<report wx:if="{{pageCur=='report'}}"></report>
+
+<view class="cu-bar tabbar bg-white shadow foot" style="border-radius:40rpx">
+  <view class="action" bindtap="navChange" data-cur="chargeStationList">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/tabbar/charge{{pageCur=='chargeStationList'?'-selected':''}}.png"></image>
+    </view>
+  </view>
+  <view class="action" bindtap="navChange" data-cur="report">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/tabbar/order{{pageCur=='report'?'-selected':''}}.png"></image>
+    </view>
+  </view>
+  <!-- <view class="action" bindtap="navChange" data-cur="user">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/tabbar/user{{pageCur=='user'?'-selected':''}}.png"></image>
+    </view>
+  </view> -->
+</view>

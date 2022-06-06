@@ -25,7 +25,6 @@ align-items: center;
 
   background-color: #ffffff;
   margin: 30rpx;
-
   padding: 30rpx;
 }
 
@@ -73,3 +72,4 @@ align-items: center;
 .smallerText{
   font-weight: smaller;
 }
+

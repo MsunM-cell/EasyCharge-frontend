@@ -1,4 +1,9 @@
 <!--pages/admin/stationDetail/stationDetail.wxml-->
+<cu-custom bgColor="bg-white" isBack="true">
+  <view>fanhui </view>
+  <view class="text-black" slot="content">充电桩详情</view>
+</cu-custom>
+
 <view class="headContainer">
   <image src="{{imageSrc}} " class="headImage"></image>
   <text>ID: {{stationInfo.pointID}}</text>

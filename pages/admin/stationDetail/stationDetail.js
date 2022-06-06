@@ -111,4 +111,5 @@ Page({
   switchStationStatus: function () {
     
   }
+
 })

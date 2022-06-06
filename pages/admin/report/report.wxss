@@ -1,0 +1,106 @@
+/* pages/admin/report/report.wxss */
+
+.flex{
+  display: flex;
+}
+
+
+.flex_center{
+  justify-content: center;
+}
+
+.item_center{
+  justify-items: center;
+}
+
+.align_item_center{
+  align-items: center;
+}
+
+.font_bold{
+  font-weight: bold;
+}
+
+.font_large{
+  font-size: large;
+}
+
+.margin_top_media{
+  margin-top: 30rpx;
+}
+.margin_top_small{
+  margin-top: 15rpx;
+}
+
+.margin_left_media{
+  margin-left:30rpx;
+}
+
+.margin_left_small{
+  margin-left: 15rpx;
+}
+
+#calendarWrapper{
+  position: relative;
+  z-index: 1000;
+}
+
+#calendar{
+  position: absolute;
+  z-index: 1000;
+}
+
+.card {
+  border-radius: 20rpx;
+
+  border: 3rpx solid #E0E3DA;
+  box-shadow:5rpx 5rpx 5rpx 5rpx #E0E3DA;
+
+  background-color: #ffffff;
+  margin: 30rpx;
+  padding: 30rpx;
+}
+
+.line{
+  background-color:rgba(128, 128, 128, 0.459);
+  height: 3rpx;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10rpx;
+}
+
+.mouthItem{
+  width:30%;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+  margin: 5rpx;
+}
+
+.flex_wrap{
+  flex-wrap: wrap;
+}
+
+.space_around{
+  justify-content: space-around;
+}
+
+
+.select{
+  color: rgb(44, 126, 248);
+}
+
+#mychart-dom-bar {
+  width: 100%;
+  height: 500rpx;
+}
+
+.infoItem{
+  margin-top: 15rpx;
+  display: flex;
+  align-items: center;
+}
+.infoItem text{
+  margin-left: 10rpx;
+  font-weight: bold;
+  font-size: 30rpx;
+}

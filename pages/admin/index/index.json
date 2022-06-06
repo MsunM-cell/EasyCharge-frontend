@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "chargeStationList" : "/pages/admin/chargeStationList/chargeStationList",
+    "report" : "/pages/admin/report/report"
+  }
 }

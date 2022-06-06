@@ -1,7 +1,10 @@
 <!--pages/admin/chargeStationList/chargeStationList.wxml-->
+<cu-custom bgColor="bg-white">
+  <view>fanhui </view>
+  <view class="text-black" slot="content">充电桩列表</view>
+</cu-custom>
+
 <block wx:for="{{chargeStations}}" wx:key="pointNum">
-
-
   <view class="chargeStationContainer" bindtap="clickChageStation" id="{{index}}">
 
     <image class="stationImg" src="{{m1.getStationPic(item.status)}}" />
@@ -9,25 +12,16 @@
     <view class="stationInfo">
       <!-- 不懂怎么布局了...写点屎山 -->
       <view>
-
         <view>
           <text class="text_small">ID:{{item.pointID}}</text>
         </view>
-        
         <view>
           <text class="text_small">{{item.type==1?"快充":"慢充"}}</text>
         </view>
       </view>
-
-
       <view>
         <text class="chargeSatusText">{{m1.status2str(item.status)}}</text>
       </view>
-
-
-
-
-
     </view>
 
   </view>
@@ -54,7 +48,6 @@
       return "关闭";
     }
   }
-
-
-
 </wxs>
+
+<view class='cu-tabbar-height' />
