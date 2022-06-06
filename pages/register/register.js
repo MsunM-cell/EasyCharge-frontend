@@ -109,6 +109,7 @@ Page({
   },
 
   registerAdmin(adminname, password) {
+    console.log("注册管理员")
     // 网络请求
     wx.request({
       url: app.globalData.server + '/admin/register',

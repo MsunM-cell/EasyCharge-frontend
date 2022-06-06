@@ -1,4 +1,4 @@
-<cu-custom bgColor="bg-white">
+<cu-custom bgColor="bg-white" isBack = "true">
   <view class="text-black" slot="content">报表展示</view>
 </cu-custom>
 

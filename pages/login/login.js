@@ -70,9 +70,10 @@ Page({
   },
 
   loginAdmin(adminname, password) {
+    console.log("管理员登陆")
     // 网络请求
     wx.request({
-      url: app.globalData.server + '/users/login',
+      url: app.globalData.server + '/admin/login',
       method: 'POST',
       data: {
         adminname: adminname,
@@ -91,12 +92,13 @@ Page({
             })
           } else if (res.data.code === 200) {
             wx.showToast({
+              
               title: '登录成功',
               icon: 'success'
             })
-            // wx.setStorageSync('admin', true)
-            // wx.setStorageSync('token', res.data.token)
-            // wx.setStorageSync('id', res.data.manageID)
+            console.log(res)
+            app.globalData.admin.id = res.data.id
+            app.globalData.admin.token = res.data.token
             // 进入管理员页面
             setTimeout(function () {
               wx.navigateTo({

@@ -5,8 +5,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    pageCur : "chargeStationList",
-    pageStatus: 0
   },
 
   /**
@@ -64,11 +62,15 @@ Page({
   onShareAppMessage: function () {
 
   },
-
-  navChange(e) {
-    // let page
-    this.setData({
-      pageCur: e.currentTarget.dataset.cur
+  navToChargeStationList :function(){
+    wx.navigateTo({
+      url: '/pages/admin/chargeStationList/chargeStationList',
     })
-  }
+  },
+  navToReport : function()
+{
+  wx.navigateTo({
+    url: '/pages/admin/report/report',
+  })
+}
 })

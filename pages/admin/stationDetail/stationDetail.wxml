@@ -6,7 +6,7 @@
 
 <view class="headContainer">
   <image src="{{imageSrc}} " class="headImage"></image>
-  <text>ID: {{stationInfo.pointID}}</text>
+  <text>ID: {{stationInfo.pointId}}</text>
   <text class="bigText" style="color: {{m1.status2color(stationInfo.status)}};">{{m1.status2str(stationInfo.status)}}</text>
 </view>
 
@@ -18,20 +18,20 @@
     <text>类型:</text>
     <text>{{stationInfo.type==1?"快充":"慢充"}}</text>
   </view>
-  <view class="infoItem">
+  <!-- <view class="infoItem">
     <image src="/images/station/order.png" style="width: 60rpx; height: 60rpx;"></image>
     <text>服务订单:</text>
     <text>{{stationInfo.order_id}}</text>
-  </view>
+  </view> -->
   <view class="infoItem">
     <image src="/images/station/chageCnt.png" style="width: 60rpx; height: 60rpx;"></image>
     <text>充电次数:</text>
-    <text>{{stationInfo.chargeCnt}}</text>
+    <text>{{stationInfo.chargeCut}}</text>
   </view>
   <view class="infoItem">
     <image src="/images/station/time.png" style="width: 60rpx; height: 60rpx;"></image>
     <text>充电时间:</text>
-    <text>{{stationInfo.charteTime}}</text>
+    <text>{{stationInfo.chargeTime}}</text>
   </view>
   <view class="infoItem">
     <image src="/images/station/chargeElec.png" style="width: 60rpx; height: 60rpx;"></image>

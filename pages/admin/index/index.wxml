@@ -1,21 +1,15 @@
-<!--pages/admin/index/index.wxml-->
-<chargeStationList wx:if="{{pageCur=='chargeStationList'}}"></chargeStationList>
-<report wx:if="{{pageCur=='report'}}"></report>
-
-<view class="cu-bar tabbar bg-white shadow foot" style="border-radius:40rpx">
-  <view class="action" bindtap="navChange" data-cur="chargeStationList">
-    <view class='cuIcon-cu-image'>
-      <image src="/images/tabbar/charge{{pageCur=='chargeStationList'?'-selected':''}}.png"></image>
+<scroll-view  scroll-y class="scrollPage" refresher-enabled="true" refresher-default-style="none" refresher-triggered="{{triggered}}" bindrefresherrefresh="onRefresh">
+  <view class="cover">
+    <image src="https://wx3.sinaimg.cn/mw2000/0084vph8ly1h2pqkt875cj31pd313kfb.jpg" mode="heightFix" style="height:100vh" />
+  </view>
+  <view class="layout">
+    <view>
+      <view class="status">
+        <view>欢迎来到</view>
+        <view>e充电 管理员端！</view>
+      </view>
+      <button class="change-btn cu-btn round bg-blue shadow" bindtap="navToChargeStationList">查看充电桩列表</button>
+      <button class="change-btn cu-btn round bg-blue shadow marginTop-media" bindtap="navToReport">查看营业报表</button>
     </view>
   </view>
-  <view class="action" bindtap="navChange" data-cur="report">
-    <view class='cuIcon-cu-image'>
-      <image src="/images/tabbar/order{{pageCur=='report'?'-selected':''}}.png"></image>
-    </view>
-  </view>
-  <!-- <view class="action" bindtap="navChange" data-cur="user">
-    <view class='cuIcon-cu-image'>
-      <image src="/images/tabbar/user{{pageCur=='user'?'-selected':''}}.png"></image>
-    </view>
-  </view> -->
-</view>
+</scroll-view>

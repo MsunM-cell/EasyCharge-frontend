@@ -1,4 +1,5 @@
 // pages/admin/stationDetail/stationDetail.js
+const app = getApp()
 Page({
 
   /**
@@ -9,30 +10,30 @@ Page({
     stationInfo: '',
     carNum: 0,
     carList: [{
-      id: 50,
-      username: 'asdf',
-      carElecTotal: 25,
-      carElecRequest: 50,
-      carWaitTime: 100,
+        id: 50,
+        username: 'asdf',
+        carElecTotal: 25,
+        carElecRequest: 50,
+        carWaitTime: 100,
 
-    },
-    {
-      id: 60,
-      username: 'hjkl',
-      carElecTotal: 100,
-      carElecRequest: 0,
-      carWaitTime: 120,
+      },
+      {
+        id: 60,
+        username: 'hjkl',
+        carElecTotal: 100,
+        carElecRequest: 0,
+        carWaitTime: 120,
 
-    },
-    {
-      id: 70,
-      username: 'qwer',
-      carElecTotal: 20,
-      carElecRequest: 100,
-      carWaitTime: 300,
+      },
+      {
+        id: 70,
+        username: 'qwer',
+        carElecTotal: 20,
+        carElecRequest: 100,
+        carWaitTime: 300,
 
-    },
-  ]
+      },
+    ]
   },
 
   /**
@@ -56,7 +57,7 @@ Page({
       imageSrc: imagesrc
     })
 
-    //TODO: 网络请求车辆信息
+    this.getChargePointCar();
   },
 
   /**
@@ -109,7 +110,96 @@ Page({
   },
 
   switchStationStatus: function () {
-    
+    let that = this;
+    if (this.data.stationInfo.status == 0) //关闭充电桩
+    {
+      wx.request({
+        url: app.globalData.server + '/admin/closeChargePoint',
+        method: 'GET',
+        data: {
+          token: app.globalData.admin.token,
+          pointID: that.data.stationInfo.pointId
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+        success(res) {
+          if (res.data.code == 200) {
+            that.setData({
+              'stationInfo.status' : 1
+            })
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+            })
+          }
+        },
+        fail(res) {
+          wx.showToast({
+            title: '未知错误',
+          })
+          console.log(res);
+        }
+      })
+
+    } else {
+      wx.request({
+        url: app.globalData.server + '/admin/onChargePoint',
+        method: 'GET',
+        data: {
+          token: app.globalData.admin.token,
+          pointID: that.stationInfo.pointId
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+        success(res) {
+          if (res.data.code == 200) {
+            that.setData({
+              'stationInfo.status' : 0
+            })
+            
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+            })
+          }
+        },
+        fail(res) {
+          wx.showToast({
+            title: '未知错误',
+          })
+          console.log(res);
+        }
+      })
+    }
+
+  },
+
+  getChargePointCar: function () {
+    let that = this
+    console.log(app.globalData.admin.token)
+    wx.request({
+      url: app.globalData.server + '/admin/getChargePointCar',
+      method: 'GET',
+      data: {
+        token: app.globalData.admin.token
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      success(res) {
+        if (res.data.code == 200) {
+          console.log(res)
+//TODO:
+        } else {
+          wx.showModal({
+            content: res.data.msg,
+            showCancel: false,
+          })
+        }
+      }
+    })
   }
 
 })

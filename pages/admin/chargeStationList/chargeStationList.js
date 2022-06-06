@@ -1,5 +1,5 @@
 // pages/admin/chargeStationList/chargeStationList.js
-
+const app = getApp()
 var managerId = getApp().globalData.managerId;
 
 Page({
@@ -8,36 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-      pointNum:10,
       chargeStations:[
-        {
-          pointID:2,
-          status:0,
-          type:0,
-          order_id:123,
-          chargeCnt:123,
-          charteTime:45,
-          chargeElec:123
-
-        },
-        {
-          pointID:10,
-          status:1,
-          type:1,
-          order_id:123,
-          chargeCnt:123,
-          charteTime:45,
-          chargeElec:123
-        },        
-        {
-          pointID:11,
-          status:2,
-          type:0,
-          order_id:123,
-          chargeCnt:123,
-          charteTime:45,
-          chargeElec:123
-        }
       ]
   },
 
@@ -45,6 +16,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '数据加载中',
+    })
+    this.getStationList();
   },
 
   /**
@@ -79,7 +54,10 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    wx.showLoading({
+      title: '刷新中',
+    })
+    this.getStationList();
   },
 
   /**
@@ -102,6 +80,41 @@ Page({
     wx.setStorageSync('stationDetail', this.data.chargeStations[e.currentTarget.id]);
     wx.navigateTo({
       url: '/pages/admin/stationDetail/stationDetail',
+    })
+  },
+  getStationList :function(){
+    let that = this;
+    console.log(app.globalData.admin.token)
+    wx.request({
+      url:  app.globalData.server + '/admin/getChargePoint',
+      method: 'GET',
+      data: {
+        token: app.globalData.admin.token
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      success(res){
+        console.log(res)
+          if(res.data.code == 200){
+            that.setData({
+              chargeStations: res.data.points
+            })
+          }else{
+            wx.showModal({
+              content: res.data.msg,
+              showCancel: false,
+            })
+          }
+      },
+      fail(res){
+          wx.showToast({
+            title: '网络错误',
+          })
+      },
+      complete(){
+        wx.hideLoading();
+      }
     })
   }
 
