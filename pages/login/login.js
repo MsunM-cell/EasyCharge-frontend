@@ -69,7 +69,7 @@ Page({
     })
   },
 
-  loginAdmin(adminname, password) {
+   loginAdmin(adminname, password) {
     console.log("管理员登陆")
     // 网络请求
     wx.request({

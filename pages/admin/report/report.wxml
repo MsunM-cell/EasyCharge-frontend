@@ -6,7 +6,7 @@
   
 
   <view class="flex align_item_center flex_center margin_top_media" bindtap="showCalendar">
-    <text class="font_bold font_large">{{year}}-{{mouth}}</text>
+    <text class="font_bold font_large">{{year}}-{{month}}</text>
     <image src="/images/report/down.png" style="width: 60rpx; height: 60rpx;"></image>
   </view>
 
@@ -21,8 +21,8 @@
           <image src="/images/report/front.png" style="width: 60rpx; height: 60rpx;" bindtap="addYear"></image>
         </view>
 
-        <view class="flex flex_wrap flex_center align_item_center">
-          <view wx:for="{{mouthdata}}" wx:key="index" id="{{index +1}}" class="mouthItem {{mouth == index+1 ? 'select' :''}} " bindtap="selectDate">
+        <view class="flex flex_wrap space_around">
+          <view wx:for="{{monthdata}}" wx:key="index" id="{{index +1}}" class="{{month == index+1 ? 'select' :''}}  mouthItem" bindtap="selectDate">
             <text class="font_bold">{{item}}</text>
           </view>
         </view>
@@ -37,12 +37,12 @@
 
   <view class="margin_left_media card" style="background-image: url(https://img0.baidu.com/it/u=434627501,3127716068&fm=253&fmt=auto&app=138&f=JPEG?w=666&h=500);">
     <view>本月收入</view>
-    <view class="font_large margin_top_small">117.00</view>
+    <view class="font_large margin_top_small">{{totalcost}}</view>
     <view class="margin_top_small">
       <text>本月充电次数</text>
-      <text class="margin_left_small">500</text>
+      <text class="margin_left_small">{{totalChargeCnt}}</text>
       <text class="margin_left_media">本月充电量</text>
-      <text class="margin_left_small">383.00</text>
+      <text class="margin_left_small">{{totalChargeElec}}</text>
     </view>
   </view>
 </view>
@@ -52,32 +52,32 @@
   </view>
 
   <view class="card">
-  <text class="font_bold font_large"> 信息</text>
+  <text class="font_bold font_large">{{year}}-{{month}}-{{day}}</text>
   <view class="line"></view>
   <view class="infoItem">
     <image src="/images/station/type.png" style="width: 60rpx; height: 60rpx;"></image>
     <text>充电次数:</text>
-    <text>123</text>
+    <text>{{currentDayChargeCnt}}</text>
   </view>
   <view class="infoItem">
     <image src="/images/station/order.png" style="width: 60rpx; height: 60rpx;"></image>
     <text>充电时长:</text>
-    <text>456</text>
+    <text>{{currentDayChargeTime}}</text>
   </view>
   <view class="infoItem">
     <image src="/images/station/chageCnt.png" style="width: 60rpx; height: 60rpx;"></image>
     <text>充电量:</text>
-    <text>7789</text>
+    <text>{{currentDayChargeElec}}</text>
   </view>
   <view class="infoItem">
     <image src="/images/station/time.png" style="width: 60rpx; height: 60rpx;"></image>
     <text>充电费用:</text>
-    <text>123</text>
+    <text>{{currentDayChargeCost}}</text>
   </view>
   <view class="infoItem">
     <image src="/images/station/chargeElec.png" style="width: 60rpx; height: 60rpx;"></image>
     <text>服务费用:</text>
-    <text>4568</text>
+    <text>{{currentDayChargeScost}}</text>
   </view>
 </view>
 

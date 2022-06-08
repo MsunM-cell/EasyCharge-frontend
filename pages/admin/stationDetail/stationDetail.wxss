@@ -73,3 +73,23 @@ align-items: center;
   font-weight: smaller;
 }
 
+.fadeText{
+  color: #808080;
+}
+
+
+.display_flex{
+  display:flex;
+}
+
+.align-items-center{
+  align-items: center;
+}
+
+.justify_item_center{
+  justify-content: center;
+}
+
+.margin_top_media{
+  margin-top: 30rpx;
+}

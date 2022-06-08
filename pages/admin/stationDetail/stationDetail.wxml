@@ -43,8 +43,11 @@
 
 <view class="card">
   <text class="cardTitle">车辆排队信息</text>
-  <view class="line"></view>
-  <view wx:for="{{carList}}" wx:key="id">
+  <view class="line" class=""></view>
+  <view wx:if="{{carListEmpty}}" class="fadeText justify_item_center margin_top_media">
+    <text>等候区没有车辆</text>
+  </view>
+  <view wx:if="{{!carListEmpty}}" wx:for="{{carList}}" wx:key="id">
     <view class="cardItem">
       <view style="display: flex;">
         <view style="display: flex; flex-direction: column;">
@@ -75,18 +78,18 @@
 <wxs module="m1">
   module.exports.status2str = function (status) {
     if (status == 0) {
-      return "充电中";
+      return "正常工作";
     } else if (status == 1) {
-      return "空闲";
+      return "异常";
     } else {
-      return "关闭";
+      return "异常";
     }
   }
   module.exports.status2color = function (status) {
     if (status == 0) {
       return "#58D68D";
     } else if (status == 1) {
-      return "#85C1E9";
+      return "#808B96";
     } else {
       return "#808B96";
     }
@@ -94,7 +97,7 @@
 
 
   module.exports.getButtonType = function (status) {
-    if (status == 0 || status == 1) {
+    if (status == 0) {
       return "warn"
     } else {
       return "primary";
@@ -102,7 +105,7 @@
   }
 
   module.exports.getButtonText = function (status) {
-    if (status == 0 || status == 1) {
+    if (status == 0) {
       return "关闭充电桩"
     } else {
       return "开启充电桩";

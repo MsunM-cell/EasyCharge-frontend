@@ -9,31 +9,9 @@ Page({
     imageSrc: "/images/station/station_disable.png",
     stationInfo: '',
     carNum: 0,
-    carList: [{
-        id: 50,
-        username: 'asdf',
-        carElecTotal: 25,
-        carElecRequest: 50,
-        carWaitTime: 100,
-
-      },
-      {
-        id: 60,
-        username: 'hjkl',
-        carElecTotal: 100,
-        carElecRequest: 0,
-        carWaitTime: 120,
-
-      },
-      {
-        id: 70,
-        username: 'qwer',
-        carElecTotal: 20,
-        carElecRequest: 100,
-        carWaitTime: 300,
-
-      },
-    ]
+    carListEmpty: false,
+    carList: {},
+    
   },
 
   /**
@@ -41,22 +19,10 @@ Page({
    */
   onLoad(options) {
     var data = wx.getStorageSync('stationDetail');
-    var imagesrc;
-    if (data.status == 0) //充电
-    {
-      imagesrc = "/images/station/staion_working.png"
-    } else if (data.status == 1) //空闲
-    {
-      imagesrc = "/images/station/staion_free.png"
-    } else //关闭
-    {
-      imagesrc = "/images/station/station_disable.png"
-    }
     this.setData({
       stationInfo: data,
-      imageSrc: imagesrc
     })
-
+    this.setImageSrc();
     this.getChargePointCar();
   },
 
@@ -115,19 +81,21 @@ Page({
     {
       wx.request({
         url: app.globalData.server + '/admin/closeChargePoint',
-        method: 'GET',
+        method: 'POST',
         data: {
           token: app.globalData.admin.token,
-          pointID: that.data.stationInfo.pointId
+          pointId: that.data.stationInfo.pointId
         },
         header: {
           'content-type': 'application/json'
         },
         success(res) {
+          console.log(res);
           if (res.data.code == 200) {
             that.setData({
-              'stationInfo.status' : 1
+              'stationInfo.status': 1
             })
+            that.setImageSrc();
           } else {
             wx.showToast({
               title: res.data.msg,
@@ -135,6 +103,7 @@ Page({
           }
         },
         fail(res) {
+          console.log(res);
           wx.showToast({
             title: '未知错误',
           })
@@ -145,20 +114,22 @@ Page({
     } else {
       wx.request({
         url: app.globalData.server + '/admin/onChargePoint',
-        method: 'GET',
+        method: 'POST',
         data: {
           token: app.globalData.admin.token,
-          pointID: that.stationInfo.pointId
+          pointId: that.data.stationInfo.pointId
         },
         header: {
           'content-type': 'application/json'
         },
+        //TODO:刷新
         success(res) {
           if (res.data.code == 200) {
             that.setData({
-              'stationInfo.status' : 0
+              'stationInfo.status': 0
             })
-            
+            that.setImageSrc();
+
           } else {
             wx.showToast({
               title: res.data.msg,
@@ -168,6 +139,7 @@ Page({
         fail(res) {
           wx.showToast({
             title: '未知错误',
+            icon: "error"
           })
           console.log(res);
         }
@@ -183,7 +155,8 @@ Page({
       url: app.globalData.server + '/admin/getChargePointCar',
       method: 'GET',
       data: {
-        token: app.globalData.admin.token
+        token: app.globalData.admin.token,
+        pointId: that.data.stationInfo.pointId
       },
       header: {
         'content-type': 'application/json'
@@ -191,7 +164,18 @@ Page({
       success(res) {
         if (res.data.code == 200) {
           console.log(res)
-//TODO:
+          that.setData({
+            carList: res.data.data
+          })
+          if (that.isCarListEmpty(res.data.data)) {
+            that.setData({
+              carListEmpty: true
+            })
+          } else {
+            that.setData({
+              carListEmpty: false
+            })
+          }
         } else {
           wx.showModal({
             content: res.data.msg,
@@ -199,6 +183,28 @@ Page({
           })
         }
       }
+    })
+  },
+  isCarListEmpty: function (data) {
+    for (var key in data) {
+      return false;
+    }
+    return true;
+  },
+  setImageSrc:function(){
+    var imagesrc;
+    if (this.data.stationInfo.status == 0) //充电
+    {
+      imagesrc = "/images/station/staion_working.png"
+    } else if (this.data.stationInfo.status == 1) //异常
+    {
+      imagesrc = "/images/station/station_disable.png"
+    } else //关闭
+    {
+      imagesrc = "/images/station/station_disable.png"
+    }
+    this.setData({
+      imageSrc:imagesrc
     })
   }
 
