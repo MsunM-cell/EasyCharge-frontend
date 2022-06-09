@@ -1,17 +1,64 @@
 // pages/admin/stationDetail/stationDetail.js
+import * as echarts from '../../../components/ec-canvas/echarts'
 const app = getApp()
-Page({
+let chart = null;
+let _this;
+function initChart(canvas, width, height, dpr) {
+  chart = echarts.init(canvas, null, {
+    width: width,
+    height: height,
+    devicePixelRatio: dpr // 像素
+  });
+  canvas.setChart(chart);
 
+  var option = {
+    dataZoom: [{
+      type: 'inside', // 内置于坐标系中
+      startValue: 0,
+      endValue: 15,
+      xAxisIndex: [0]
+    }],
+    title: {
+      text: '每日收入表'
+    },
+    tooltip: {},
+    legend: {
+      data: ['收入']
+    },
+    xAxis: {
+      data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+    },
+    yAxis: {},
+    series: [{
+      name: '日收入',
+      type: 'bar',
+      data: [9, 8, 5, 4, 7, 6, 3, 2, 1, 5, 4, 7, 8, 9, 6, 4, 7, 8, 5, 3, 6, 2, 4, 7, 5, 7, 9, 6, 5, 1, 2]
+    }]
+  };
+  chart.setOption(option);
+  return chart;
+}
+
+Page({
   /**
    * 页面的初始数据
    */
   data: {
+    isShowCalendar: false,
+    year: 2021,
+    month: 9,
+    day: 14,
     imageSrc: "/images/station/station_disable.png",
     stationInfo: '',
     carNum: 0,
     carListEmpty: false,
     carList: {},
-    
+    monthdata: [
+      "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月",
+    ],
+    ec: {
+      onInit: initChart
+    },
   },
 
   /**
@@ -19,6 +66,8 @@ Page({
    */
   onLoad(options) {
     var data = wx.getStorageSync('stationDetail');
+    _this = this;
+    this.initTime();
     this.setData({
       stationInfo: data,
     })
@@ -37,7 +86,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    this.getData();
   },
 
   /**
@@ -98,7 +147,7 @@ Page({
             that.setImageSrc();
           } else {
             wx.showToast({
-              title: res.data.msg,
+              title: res.data.msg || "信息获取失败",
             })
           }
         },
@@ -106,6 +155,7 @@ Page({
           console.log(res);
           wx.showToast({
             title: '未知错误',
+            icon: "error"
           })
           console.log(res);
         }
@@ -132,7 +182,7 @@ Page({
 
           } else {
             wx.showToast({
-              title: res.data.msg,
+              title: res.data.msg || "信息获取失败",
             })
           }
         },
@@ -165,7 +215,7 @@ Page({
         if (res.data.code == 200) {
           console.log(res)
           that.setData({
-            carList: res.data.data
+            'carList[0]': res.data.data
           })
           if (that.isCarListEmpty(res.data.data)) {
             that.setData({
@@ -178,7 +228,7 @@ Page({
           }
         } else {
           wx.showModal({
-            content: res.data.msg,
+            content: res.data.msg ||"信息获取失败",
             showCancel: false,
           })
         }
@@ -206,6 +256,133 @@ Page({
     this.setData({
       imageSrc:imagesrc
     })
-  }
+  },
+  showCalendar: function () {
+    this.setData({
+      isShowCalendar: !this.data.isShowCalendar
+    })
+  },
+  addYear: function () {
+    this.setData({
+      year: this.data.year + 1
+    })
+  },
+
+  subYear: function () {
+    this.setData({
+      year: this.data.year - 1
+    })
+  },
+  selectDate: function (e) {
+    this.setData({
+      month: e.currentTarget.id,
+      isShowCalendar: false
+    })
+    this.getData();
+  },
+  initTime: function () {
+    var myDate = new Date();
+    var currentYear = myDate.getFullYear();
+    var currentmonth = myDate.getMonth();
+    var currentDay = myDate.getDate();
+    console.log(currentYear);
+    console.log(currentmonth);
+    console.log(currentDay);
+    this.setData({
+      year: currentYear,
+      //因为0表示1月，所以要加一
+      month: currentmonth + 1,
+      day: currentDay
+    })
+  },
+
+  getData: function () {
+    var start = this.data.year + "-" + 0 + this.data.month + "-" + "01";
+    var end = this.data.year + "-" + 0 + this.data.month + "-" + this.getMonthLength(this.data.year,this.data.month);
+    wx.showLoading({
+      title: '数据加载中',
+    })
+    wx.request({
+      url: app.globalData.server + '/admin/getPointChargeReport',
+      method: 'GET',
+      data: {
+        token: app.globalData.admin.token,
+        pointId: this.data.stationInfo.pointId,
+        start: start,
+        end: end
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      success(res) {
+        console.log(res)
+        if (res.data.code == 200) {
+          _this.processData(res.data.data)
+          _this.setData({
+            reportData: res.data.data
+          })
+
+        } else {
+          wx.showToast({
+            title: res.data.msg || "信息获取失败",
+          })
+        }
+      },
+      fail(res) {
+
+        wx.showToast({
+          title: '未知错误',
+          icon: "error"
+          
+        })
+        console.log(res);
+      },
+      complete() {
+        wx.hideLoading();
+      }
+    })
+  },
+  getMonthLength: function (year, month) {
+    var date = year + "-" + month + "-" + "01";
+    let d = new Date(date);
+    // 将日期设置为下月一号
+    d.setMonth(d.getMonth() + 1);
+    d.setDate('1');
+    // 获取本月最后一天
+    d.setDate(d.getDate() - 1);
+    var day = d.getDate();
+    console.log(year + "年" + month + "月有" + day + "天")
+    return day;
+  },
+
+  processData: function (data) {
+    var monthLength = this.getMonthLength(_this.data.year, _this.data.month);
+    var x = [];
+    var y = [];
+    console.log("总共有" + monthLength + "天")
+    for (var i = 0; i < monthLength; i++) {
+      x[i] = i + 1;
+      y[i] = 0;
+    }
+    console.log(data)
+    data.forEach(item => {
+      console.log(item)
+      var day = new Date(item.date).getDate();
+      y[day - 1] = item.chargeTotalcost;
+    });
+    console.log(x)
+    console.log(y)
+    chart.setOption({
+      xAxis: {
+        data: x
+      },
+      series: [{
+        name: '日收入',
+        type: 'bar',
+        data: y
+      }]
+    })
+
+  },
 
 })

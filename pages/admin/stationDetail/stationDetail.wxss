@@ -93,3 +93,68 @@ align-items: center;
 .margin_top_media{
   margin-top: 30rpx;
 }
+
+.margin_left_small{
+  margin-left: 15rpx;
+}
+
+#calendarWrapper{
+  position: relative;
+  z-index: 1000;
+}
+
+#calendar{
+  position: absolute;
+  z-index: 1000;
+}
+.flex{
+  display: flex;
+}
+
+
+.flex_center{
+  justify-content: center;
+}
+
+.align_item_center{
+  align-items: center;
+}
+
+.font_large{
+  font-size: large;
+}
+
+.font_bold{
+  font-weight: bold;
+}
+
+#calendarWrapper{
+  position: relative;
+  z-index: 1000;
+}
+
+#calendar{
+  position: absolute;
+  z-index: 1000;
+}
+
+
+#mychart-dom-bar {
+  width: 100%;
+  height: 500rpx;
+}
+
+.flex_wrap{
+  flex-wrap: wrap;
+}
+
+.space_around{
+  justify-content: space-around;
+}
+
+.mouthItem{
+  width:30%;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+  margin: 5rpx;
+}

@@ -192,7 +192,6 @@ Page({
       method: 'GET',
       data: {
         token: app.globalData.admin.token,
-        pointId: 1,
         start: start,
         end: end
       },
@@ -217,6 +216,8 @@ Page({
 
         wx.showToast({
           title: '未知错误',
+          icon: "error"
+          
         })
         console.log(res);
       },

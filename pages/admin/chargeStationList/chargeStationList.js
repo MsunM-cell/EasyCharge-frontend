@@ -19,7 +19,7 @@ Page({
     wx.showLoading({
       title: '数据加载中',
     })
-    this.getStationList();
+
   },
 
   /**
@@ -33,7 +33,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getStationList();
   },
 
   /**
@@ -110,6 +110,7 @@ Page({
       fail(res){
           wx.showToast({
             title: '网络错误',
+            icon: "error"
           })
       },
       complete(){

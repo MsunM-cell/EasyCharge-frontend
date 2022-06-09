@@ -73,6 +73,45 @@
 </view>
 
 
+<view class="card">
+  <view class="flex align_item_center flex_center margin_top_media" bindtap="showCalendar">
+    <text class="font_bold font_large">{{year}}-{{month}}</text>
+    <image src="/images/report/down.png" style="width: 60rpx; height: 60rpx;"></image>
+  </view>
+
+  <view id="calendarWrapper" wx:if="{{isShowCalendar}}">
+
+    <view id="calendar">
+      <view class="card">
+
+        <view class="flex flex_center align_item_center">
+          <image src="/images/report/back.png" style="width: 60rpx; height: 60rpx;" bindtap="subYear"></image>
+          <text class="font_large" style="margin-left: 30rpx; margin-right: 30rpx;"> {{year}}</text>
+          <image src="/images/report/front.png" style="width: 60rpx; height: 60rpx;" bindtap="addYear"></image>
+        </view>
+
+        <view class="flex flex_wrap space_around">
+          <view wx:for="{{monthdata}}" wx:key="index" id="{{index +1}}" class="{{month == index+1 ? 'select' :''}}  mouthItem" bindtap="selectDate">
+            <text class="font_bold">{{item}}</text>
+          </view>
+        </view>
+
+
+
+      </view>
+
+
+
+    </view>
+
+  </view>
+
+  <view class="container">
+          <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+        </view>
+</view>
+
+
 <button type="{{m1.getButtonType(stationInfo.status)}}" bindtap="switchStationStatus"> {{m1.getButtonText(stationInfo.status)}}</button>
 
 <wxs module="m1">
