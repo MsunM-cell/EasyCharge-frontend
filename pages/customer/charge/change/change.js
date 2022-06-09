@@ -45,6 +45,7 @@ Page({
   },
 
   changeCapacity(capacity) {
+    capacity = parseInt(capacity)
     let id = app.globalData.customer.order_id
     // 修改充电量的网络请求
     wx.request({
@@ -58,6 +59,7 @@ Page({
         'content-type': 'application/json'
       },
       success(res) {
+        console.log(res)
         if (res.statusCode == 200) {
           if (res.data.code == 200) {
             wx.showToast({
@@ -83,8 +85,9 @@ Page({
   },
 
   changeMode() {
-    let mode = this.data.index
+    let mode = parseInt(this.data.index)
     let id = app.globalData.customer.order_id
+    console.log(id)
     // 修改充电模式的网络请求
     wx.request({
       url: app.globalData.server + '/orders/mode/' + id,

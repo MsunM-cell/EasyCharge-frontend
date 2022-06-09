@@ -13,9 +13,9 @@ Page({
   },
 
   submitCharge(e) {
-    let mode = this.data.index
-    let capacity = e.detail.value.capacity
-    let total_capacity = e.detail.value.total_capacity
+    let mode = parseInt(this.data.index)
+    let capacity = parseInt(e.detail.value.capacity)
+    let total_capacity = parseInt(e.detail.value.total_capacity)
     // 提交订单的网络请求
     wx.request({
       url: app.globalData.server + '/order/requestCharge',

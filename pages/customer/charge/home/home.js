@@ -18,9 +18,6 @@ Component({
   lifetimes: {
     // 在组件实例进入页面节点树时执行
     attached: function () {
-      this.setData({
-        customer: app.globalData.customer
-      })
       // 检查当前用户充电状态
       this.checkStatus()
     },
@@ -55,6 +52,9 @@ Component({
     },
 
     checkStatus() {
+      this.setData({
+        customer: app.globalData.customer
+      })
       if (this.data.customer.order_id) {
         // 获取订单信息
         this.getOrderInfo()
@@ -63,6 +63,7 @@ Component({
 
     getOrderInfo() {
       let id = this.data.customer.order_id
+      console.log('id', id)
       let token = this.data.customer.token
       let that = this
       // 获取订单信息的网络请求
@@ -111,7 +112,6 @@ Component({
     },
 
     checkOrderStatus() {
-      console.log('abcd')
       let order_status = this.data.order.status
       switch (order_status) {
         case 0: // 等候区
@@ -249,17 +249,17 @@ Component({
       })
 
       // 测试
-      this.setData({
-        chargeInfo: {
-          "station": 60,
-          "capacity_cost": 17,
-          "cost": 64,
-          "start_time": "1994-12-23 08:51:21",
-          "service_cost": 39,
-          "capacity": 67,
-          "time": "01:13:45"
-        }
-      })
+      // this.setData({
+      //   chargeInfo: {
+      //     "station": 60,
+      //     "capacity_cost": 17,
+      //     "cost": 64,
+      //     "start_time": "1994-12-23 08:51:21",
+      //     "service_cost": 39,
+      //     "capacity": 67,
+      //     "time": "01:13:45"
+      //   }
+      // })
     },
 
     getOrderDetails() {
@@ -375,6 +375,8 @@ Component({
                 title: '支付成功',
                 icon: 'success'
               })
+              // 清除当前订单
+              app.globalData.customer.order_id = null
               setTimeout(function () {
                 wx.navigateTo({
                   url: '/pages/customer/index/index'

@@ -58,7 +58,7 @@
       <view class="status">
         {{order.mode===0?'快充':'慢充'}} 充电区排队中...
       </view>
-      <view class="time">下单时间：{{order.create_time}}</view>
+      <view class="time">下单时间：{{order.createTime}}</view>
       <button class="change-btn cu-btn round bg-blue shadow" bindtap="cancelCharge">取消充电</button>
       <view class="display flex text-white">
         <view class="flex-sub display-center">
