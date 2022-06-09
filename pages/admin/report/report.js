@@ -183,7 +183,7 @@ Page({
 
   getData: function () {
     var start = this.data.year + "-" + 0 + this.data.month + "-" + "01";
-    var end = this.data.year + "-" + 0 + this.data.month + "-" + 30;
+    var end = this.data.year + "-" + 0 + this.data.month + "-" + this.getMonthLength(this.data.year,this.data.month);
     wx.showLoading({
       title: '数据加载中',
     })
