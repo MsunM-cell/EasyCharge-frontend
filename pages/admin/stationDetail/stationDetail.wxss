@@ -158,3 +158,8 @@ align-items: center;
   padding-bottom: 10rpx;
   margin: 5rpx;
 }
+
+
+.flex_column{
+  flex-direction: column;
+}

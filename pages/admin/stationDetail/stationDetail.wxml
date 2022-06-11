@@ -1,13 +1,12 @@
 <!--pages/admin/stationDetail/stationDetail.wxml-->
 <cu-custom bgColor="bg-white" isBack="true">
-  <view>fanhui </view>
   <view class="text-black" slot="content">充电桩详情</view>
 </cu-custom>
 
 <view class="headContainer">
   <image src="{{imageSrc}} " class="headImage"></image>
   <text>ID: {{stationInfo.pointId}}</text>
-  <text class="bigText" style="color: {{m1.status2color(stationInfo.status)}};">{{m1.status2str(stationInfo.status)}}</text>
+  <text class="bigText" style="color: {{m1.status2color(stationInfo.status, item.isOpen)}};">{{m1.status2str(stationInfo.status , stationInfo.isOpen)}}</text>
 </view>
 
 <view class="card">
@@ -16,7 +15,7 @@
   <view class="infoItem">
     <image src="/images/station/type.png" style="width: 60rpx; height: 60rpx;"></image>
     <text>类型:</text>
-    <text>{{stationInfo.type==1?"快充":"慢充"}}</text>
+    <text>{{stationInfo.type==1?"慢充":"快充"}}</text>
   </view>
   <!-- <view class="infoItem">
     <image src="/images/station/order.png" style="width: 60rpx; height: 60rpx;"></image>
@@ -26,7 +25,7 @@
   <view class="infoItem">
     <image src="/images/station/chageCnt.png" style="width: 60rpx; height: 60rpx;"></image>
     <text>充电次数:</text>
-    <text>{{stationInfo.useTime}}</text>
+    <text>{{stationInfo.useTimes}}</text>
   </view>
   <view class="infoItem">
     <image src="/images/station/time.png" style="width: 60rpx; height: 60rpx;"></image>
@@ -54,10 +53,9 @@
           <image src="/images/station/car.png" style="height: 60rpx; width: 60rpx; margin-right: 30rpx;"></image>
           <text class="thinText">id:{{item.id}}</text>
         </view>
-        <view>
-          <text class="block">用户名：{{item.username}}</text>
-          <text class="block">车辆电池总容量:{{item.carElecTotal}}</text>
-          <text class="block">请求充电量:{{item.carElecRequest}}</text>
+        <view class="display_flex flex_column justify_item_center">
+          <text>车辆电池总容量:{{item.carElecTotal}}</text>
+          <text>请求充电量:{{item.carElecRequest}}</text>
         </view>
       </view>
 
@@ -112,26 +110,33 @@
 </view>
 
 
-<button type="{{m1.getButtonType(stationInfo.status)}}" bindtap="switchStationStatus"> {{m1.getButtonText(stationInfo.status)}}
+<button wx:if="stationInfo.isOpen" type="{{m1.getButtonType(stationInfo.status)}}" bindtap="switchStationStatus"> {{m1.setErrorOrSetNormal(stationInfo.status)}}
+</button>
+
+<button type="{{m1.getIsOpenButtonType(stationInfo.isOpen)}}" bindtap="trunOnOrOff"> {{m1.setOpenOrClose(stationInfo.isOpen)}}
 </button>
 
 <wxs module="m1">
   module.exports.status2str = function (status, isOpen) {
-    if (status == 0) {
-      return "正常工作";
-    } else if (status == 1) {
-      return "异常";
-    } else {
-      return "异常";
+    if(isOpen){
+      if(status == 0){
+        return "正常工作"
+      }else{
+       return "异常"
+      }
+    }else{
+      return 	"关闭";
     }
   }
-  module.exports.status2color = function (status) {
-    if (status == 0) {
-      return "#58D68D";
-    } else if (status == 1) {
-      return "#808B96";
-    } else {
-      return "#808B96";
+  module.exports.status2color = function (status , isOpen) {
+    if(isOpen){
+      if(status == 0){
+        return "#58D68D"
+      }else{
+       return "#DC143C"
+      }
+    }else{
+      return 	"#778899";
     }
   }
 
@@ -144,11 +149,29 @@
     }
   }
 
-  module.exports.getButtonText = function (status) {
+  module.exports.getIsOpenButtonType = function (isOpen) {
+    if (isOpen) {
+      return "warn"
+    } else {
+      return "primary";
+    }
+  }
+
+  module.exports.setErrorOrSetNormal = function (status) {
     if (status == 0) {
+      return "设置充电桩异常"
+    } else {
+      return "设置充电桩正常";
+    }
+  }
+
+  module.exports.setOpenOrClose = function (isOpen) {
+    if (isOpen) {
       return "关闭充电桩"
     } else {
       return "开启充电桩";
     }
   }
+
+
 </wxs>

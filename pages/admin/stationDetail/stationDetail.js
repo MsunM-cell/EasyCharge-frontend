@@ -126,7 +126,7 @@ Page({
 
   switchStationStatus: function () {
     let that = this;
-    if (this.data.stationInfo.status == 0) //关闭充电桩
+    if (this.data.stationInfo.status == 0) //设置为异常
     {
       wx.request({
         url: app.globalData.server + '/admin/setPointError',
@@ -147,7 +147,7 @@ Page({
             that.setImageSrc();
           } else {
             wx.showToast({
-              title: res.data.msg || "信息获取失败",
+              title: res.data.msg || "设置充电桩异常失败",
             })
           }
         },
@@ -182,7 +182,7 @@ Page({
 
           } else {
             wx.showToast({
-              title: res.data.msg || "信息获取失败",
+              title: res.data.msg || "无法恢复充电桩",
             })
           }
         },
@@ -196,6 +196,79 @@ Page({
       })
     }
 
+  },
+
+  trunOnOrOff :function(){
+    let that = this;
+    if (this.data.stationInfo.isOpen) //现在为开，设置程关闭
+    {
+      wx.request({
+        url: app.globalData.server + '/admin/closeChargePoint',
+        method: 'POST',
+        data: {
+          token: app.globalData.admin.token,
+          pointId: that.data.stationInfo.pointId
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+        success(res) {
+          console.log(res);
+          if (res.data.code == 200) {
+            that.setData({
+              'stationInfo.isOpen': 0
+            })
+            that.setImageSrc();
+          } else {
+            wx.showToast({
+              title: res.data.msg || "无法关闭充电桩",
+            })
+          }
+        },
+        fail(res) {
+          console.log(res);
+          wx.showToast({
+            title: '未知错误',
+            icon: "error"
+          })
+          console.log(res);
+        }
+      })
+
+    } else {
+      wx.request({
+        url: app.globalData.server + '/admin/onChargePoint',
+        method: 'POST',
+        data: {
+          token: app.globalData.admin.token,
+          pointId: that.data.stationInfo.pointId
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+        //TODO:刷新
+        success(res) {
+          if (res.data.code == 200) {
+            that.setData({
+              'stationInfo.isOpen': 1
+            })
+            that.setImageSrc();
+
+          } else {
+            wx.showToast({
+              title: res.data.msg || "无法开启充电桩",
+            })
+          }
+        },
+        fail(res) {
+          wx.showToast({
+            title: '未知错误',
+            icon: "error"
+          })
+          console.log(res);
+        }
+      })
+    }
   },
 
   getChargePointCar: function () {
@@ -227,11 +300,23 @@ Page({
             })
           }
         } else {
-          wx.showModal({
-            content: res.data.msg ||"信息获取失败",
-            showCancel: false,
+          wx.showToast({
+            title: res.data.msg ||"无法获取排队队列",
+            icon:"error"
+          })
+          that.setData({
+            carListEmpty: true
           })
         }
+      },
+      fail(res){
+        wx.showToast({
+          title: res.data.msg ||"无法获取排队信息",
+          icon:"error"
+        })
+        that.setData({
+          carListEmpty: true
+        })
       }
     })
   },
@@ -243,14 +328,13 @@ Page({
   },
   setImageSrc:function(){
     var imagesrc;
-    if (this.data.stationInfo.status == 0) //充电
-    {
-      imagesrc = "/images/station/staion_working.png"
-    } else if (this.data.stationInfo.status == 1) //异常
-    {
-      imagesrc = "/images/station/station_disable.png"
-    } else //关闭
-    {
+    if(this.data.stationInfo.isOpen){
+      if(this.data.stationInfo.status == 0){
+        imagesrc = "/images/station/staion_working.png"
+      }else{
+        imagesrc = "/images/station/station_error.png"
+      }
+    }else{
       imagesrc = "/images/station/station_disable.png"
     }
     this.setData({
@@ -324,7 +408,7 @@ Page({
 
         } else {
           wx.showToast({
-            title: res.data.msg || "信息获取失败",
+            title: res.data.msg || "报表获取失败",
           })
         }
       },
