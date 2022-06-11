@@ -7,7 +7,7 @@
 <block wx:for="{{chargeStations}}" wx:key="pointNum">
   <view class="chargeStationContainer" bindtap="clickChageStation" id="{{index}}">
 
-    <image class="stationImg" src="{{m1.getStationPic(item.status)}}" />
+    <image class="stationImg" src="{{m1.getStationPic(item.status , item.isOpen)}}" />
 
     <view class="stationInfo">
       <!-- 不懂怎么布局了...写点屎山 -->
@@ -20,7 +20,7 @@
         </view>
       </view>
       <view>
-        <text class="chargeSatusText">{{m1.status2str(item.status)}}</text>
+        <text class="chargeSatusText">{{m1.status2str(item.status , item.isOpen)}}</text>
       </view>
     </view>
 
@@ -29,23 +29,27 @@
 </block>
 
 <wxs module="m1">
-  module.exports.getStationPic = function (status) {
-    if (status == 0) {
-      return "/images/station/staion_working.png";
-    } else if (status == 1) {
-      return "/images/station/station_disable.png";
+  module.exports.getStationPic = function (status, isOpen) {
+    if (isOpen) {
+      if (status == 0) {
+        return "/images/station/staion_working.png";
+      } else if (status == 1) {
+        return "/images/station/station_error.png";
+      }
     } else {
       return "/images/station/station_disable.png";
     }
   }
 
-  module.exports.status2str = function (status) {
-    if (status == 0) {
-      return "正常";
-    } else if (status == 1) {
-      return "异常";
+  module.exports.status2str = function (status , isOpen) {
+    if (isOpen) {
+      if (status == 0) {
+        return "正常";
+      } else if (status == 1) {
+        return "异常";
+      }
     } else {
-      return "异常";
+      return "关闭";
     }
   }
 </wxs>

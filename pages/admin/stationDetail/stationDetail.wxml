@@ -26,7 +26,7 @@
   <view class="infoItem">
     <image src="/images/station/chageCnt.png" style="width: 60rpx; height: 60rpx;"></image>
     <text>充电次数:</text>
-    <text>{{stationInfo.chargeCut}}</text>
+    <text>{{stationInfo.useTime}}</text>
   </view>
   <view class="infoItem">
     <image src="/images/station/time.png" style="width: 60rpx; height: 60rpx;"></image>
@@ -35,7 +35,7 @@
   </view>
   <view class="infoItem">
     <image src="/images/station/chargeElec.png" style="width: 60rpx; height: 60rpx;"></image>
-    <text>充电时间:</text>
+    <text>充电电量:</text>
     <text>{{stationInfo.chargeElec}}</text>
   </view>
 </view>
@@ -112,10 +112,11 @@
 </view>
 
 
-<button type="{{m1.getButtonType(stationInfo.status)}}" bindtap="switchStationStatus"> {{m1.getButtonText(stationInfo.status)}}</button>
+<button type="{{m1.getButtonType(stationInfo.status)}}" bindtap="switchStationStatus"> {{m1.getButtonText(stationInfo.status)}}
+</button>
 
 <wxs module="m1">
-  module.exports.status2str = function (status) {
+  module.exports.status2str = function (status, isOpen) {
     if (status == 0) {
       return "正常工作";
     } else if (status == 1) {

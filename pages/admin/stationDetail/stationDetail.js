@@ -129,7 +129,7 @@ Page({
     if (this.data.stationInfo.status == 0) //关闭充电桩
     {
       wx.request({
-        url: app.globalData.server + '/admin/closeChargePoint',
+        url: app.globalData.server + '/admin/setPointError',
         method: 'POST',
         data: {
           token: app.globalData.admin.token,
@@ -163,7 +163,7 @@ Page({
 
     } else {
       wx.request({
-        url: app.globalData.server + '/admin/onChargePoint',
+        url: app.globalData.server + '/admin/setPointOK',
         method: 'POST',
         data: {
           token: app.globalData.admin.token,

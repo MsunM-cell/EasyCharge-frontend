@@ -10,7 +10,7 @@ Page({
   data: {
       chargeStations:[
       ]
-  },
+  }, 
 
   /**
    * 生命周期函数--监听页面加载
@@ -102,7 +102,7 @@ Page({
             })
           }else{
             wx.showModal({
-              content: res.data.msg,
+              content: res.data.msg|| "信息获取失败",
               showCancel: false,
             })
           }
