@@ -162,6 +162,9 @@ Page({
       })
 
     } else {
+      wx.showLoading({
+        title: '恢复调度中',
+      })
       wx.request({
         url: app.globalData.server + '/admin/setPointOK',
         method: 'POST',
@@ -192,6 +195,9 @@ Page({
             icon: "error"
           })
           console.log(res);
+        },
+        complete(){
+          wx.hideLoading();
         }
       })
     }
@@ -288,7 +294,7 @@ Page({
         if (res.data.code == 200) {
           console.log(res)
           that.setData({
-            'carList[0]': res.data.data
+            carList: res.data.data
           })
           if (that.isCarListEmpty(res.data.data)) {
             that.setData({

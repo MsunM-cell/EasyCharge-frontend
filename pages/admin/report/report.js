@@ -241,11 +241,12 @@ Page({
     var totalChargeCnt = 0;
     var totalChargeElec = 0;
     console.log(data)
+    
     data.forEach(item => {
       console.log(item)
       var day = new Date(item.date).getDate();
       console.log("正在计算第" + day + "天数据")
-      y[day - 1] = item.chargeTotalcost;
+      y[day - 1] += item.chargeTotalcost;
       totalcost += item.chargeTotalcost;
       totalChargeCnt += item.chargeTotalCnt;
       totalChargeElec += item.chargeTotalElec;
@@ -253,9 +254,9 @@ Page({
     console.log(x)
     console.log(y)
     this.setData({
-      totalcost: totalcost,
+      totalcost: totalcost.toFixed(2),
       totalChargeCnt: totalChargeCnt,
-      totalChargeElec: totalChargeElec
+      totalChargeElec: totalChargeElec.toFixed(2)
     })
     chart.setOption({
       xAxis: {
@@ -290,32 +291,32 @@ Page({
   },
   setCurrentDayInfo() {
     console.log("查看第" + this.data.month + "月第" + this.data.day + "天数据");
-    var find = 0;
+    var cut = 0;
+    var time = 0;
+    var elec = 0;
+    var scost = 0;
+    var cost = 0;
     if (!this.isListEmpty(this.data.reportData)) {
       this.data.reportData.forEach(item => {
         var thisDate = new Date(item.date);
         if (thisDate.getDate() == this.data.day && thisDate.getMonth() + 1 == this.data.month && thisDate.getFullYear() == this.data.year) {
-          this.setData({
-            currentDayChargeCnt: item.chargeTotalCnt,
-            currentDayChargeTime: item.chargeTotalTime,
-            currentDayChargeElec: item.chargeTotalElec,
-            currentDayChargeScost: item.chargeTotalScost,
-            currentDayChargeCost: item.chargeTotalcost
-          })
-          find = 1;
+          cut += item.chargeTotalCnt;
+          time += item.chargeTotalTime;
+          elec += item.chargeTotalElec;
+          scost +=  item.chargeTotalScost;
+          cost +=item.chargeTotalcost;
         }
       });
     }
 
-    if (find == 0) {
       this.setData({
-        currentDayChargeCnt: 0,
-        currentDayChargeTime: 0,
-        currentDayChargeElec: 0,
-        currentDayChargeScost: 0,
-        currentDayChargeCost: 0
+        currentDayChargeCnt: cut,
+        currentDayChargeTime: time.toFixed(2),
+        currentDayChargeElec: elec.toFixed(2),
+        currentDayChargeScost: scost.toFixed(2),
+        currentDayChargeCost: cost.toFixed(2)
       })
-    }
+  
 
   }
 })
