@@ -12,11 +12,11 @@
       <view class="display flex text-white">
         <view class="flex-sub display-center">
           <view>快充电桩</view>
-          <view class="text-bold text-xxl margin-top">10</view>
+          <view class="text-bold text-xxl margin-top">2</view>
         </view>
         <view class="flex-sub display-center">
           <view>慢充电桩</view>
-          <view class="text-bold text-xxl margin-top">8</view>
+          <view class="text-bold text-xxl margin-top">3</view>
         </view>
         <!-- <view class="flex-sub display-center">
           <view>请求充电量</view>

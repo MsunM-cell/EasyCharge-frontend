@@ -137,6 +137,8 @@ Component({
         case 3: // 待支付
           // 获取充电详单
           this.getOrderDetails()
+        case 5:
+          app.globalData.customer.order_id = null
       }
     },
 
