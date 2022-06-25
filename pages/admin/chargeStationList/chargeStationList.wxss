@@ -6,11 +6,11 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  
+
   border-radius: 20rpx;
 
   border: 3rpx solid #E0E3DA;
-  box-shadow:5rpx 5rpx 5rpx 5rpx #E0E3DA;
+  box-shadow: 5rpx 5rpx 5rpx 5rpx #E0E3DA;
 
   background-color: #ffffff;
   margin: 30rpx;
@@ -44,7 +44,61 @@
 }
 
 
-.chargeSatusText{
+.chargeSatusText {
   font-size: 38rpx;
   font-weight: bold;
+}
+
+.card {
+  border-radius: 20rpx;
+
+  border: 3rpx solid #E0E3DA;
+  box-shadow: 5rpx 5rpx 5rpx 5rpx #E0E3DA;
+
+  background-color: #ffffff;
+  margin: 30rpx;
+  padding: 30rpx;
+}
+
+.flex {
+  display: flex;
+}
+
+
+.flex_center {
+  justify-content: center;
+}
+
+.flex_wrap {
+  flex-wrap: wrap;
+}
+
+.space_around {
+  justify-content: space-around;
+}
+
+.flex_colomn{
+  flex-direction: column;
+}
+
+.bigText {
+  font-size: 60rpx;
+  font-weight: bold;
+}
+
+
+.font_bold{
+  font-weight: bold;
+}
+
+.font_large{
+  font-size: large;
+}
+
+.line{
+  background-color:rgba(128, 128, 128, 0.459);
+  height: 3rpx;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10rpx;
 }

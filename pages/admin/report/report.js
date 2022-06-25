@@ -22,6 +22,13 @@ function initChart(canvas, width, height, dpr) {
     title: {
       text: '每日收入表'
     },
+    grid: {
+      left: '3%', //默认10%
+      right: '4%', //默认10%
+      bottom: '1%', //默认60
+      containLabel: true
+      //grid区域是否包含坐标轴的刻度标签
+  },
     tooltip: {},
     legend: {
       data: ['收入']

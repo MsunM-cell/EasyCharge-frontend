@@ -29,6 +29,14 @@ function initChart(canvas, width, height, dpr) {
       data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
     },
     yAxis: {},
+    grid: {
+      left: '3%', //默认10%
+      right: '4%', //默认10%
+      bottom: '1%', //默认60
+      containLabel: true
+      //grid区域是否包含坐标轴的刻度标签
+  },
+
     series: [{
       name: '日收入',
       type: 'bar',
@@ -36,6 +44,10 @@ function initChart(canvas, width, height, dpr) {
     }]
   };
   chart.setOption(option);
+
+  chart.on('click', function (params) {
+    _this.chartTap(params.dataIndex + 1)
+  });
   return chart;
 }
 
@@ -44,10 +56,21 @@ Page({
    * 页面的初始数据
    */
   data: {
+    bootTime: 1655329800, //系统的开机时间
+    startTime: 1655329800, //6-16-5：30的时间
+    currentTime: 1655329800, //当前的虚拟时间
+    refreshTimeHandler: -1,
+    refreshHandler : -1,
+    lastRefresh : 0,
+    hour: 0,
+    minute:0,
+    second:0,
+
     isShowCalendar: false,
     year: 2021,
     month: 9,
     day: 14,
+
     imageSrc: "/images/station/station_disable.png",
     stationInfo: '',
     carNum: 0,
@@ -59,6 +82,20 @@ Page({
     ec: {
       onInit: initChart
     },
+
+    currentDayChargeCnt: 0,
+    currentDayChargeTime: 0,
+    currentDayChargeElec: 0,
+    currentDayChargeScost: 0,
+    currentDayChargeCost: 0,
+
+    noChargeCar : true,
+
+    chargeCar : {
+      orderid: 1,
+      capacity: 2,
+      cost: 1.3,
+    }
   },
 
   /**
@@ -68,13 +105,23 @@ Page({
     var data = wx.getStorageSync('stationDetail');
     _this = this;
     this.initTime();
+    this.getTimeStamp();
     this.setData({
       stationInfo: data,
     })
     this.setImageSrc();
     this.getChargePointCar();
+    var handler = setInterval(() => {
+      _this.refresh();
+    }, 10000); //5分钟是30s ， 10s刷新一次
+    this.setData({
+      refreshHandler : handler
+    })
   },
 
+  refresh : function(){
+    this.getChargePointCar();
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -94,13 +141,17 @@ Page({
    */
   onHide() {
 
+    
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload() {
-
+  onUnload() {   
+  //    console.log("handler")
+  // console.log(this.data.refreshTimeHandler);
+  clearInterval(this.data.refreshTimeHandler);
+  clearInterval(this.data.refreshHandler);
   },
 
   /**
@@ -124,9 +175,11 @@ Page({
 
   },
 
+
+
   switchStationStatus: function () {
     let that = this;
-    if (this.data.stationInfo.status == 0) //设置为异常
+    if (this.data.stationInfo.status == 0) //需要设置为异常
     {
       wx.request({
         url: app.globalData.server + '/admin/setPointError',
@@ -279,7 +332,8 @@ Page({
 
   getChargePointCar: function () {
     let that = this
-    console.log(app.globalData.admin.token)
+
+    //获得排队区车辆
     wx.request({
       url: app.globalData.server + '/admin/getChargePointCar',
       method: 'GET',
@@ -318,6 +372,63 @@ Page({
       fail(res){
         wx.showToast({
           title: res.data.msg ||"无法获取排队信息",
+          icon:"error"
+        })
+        that.setData({
+          carListEmpty: true
+        })
+      }
+    })
+
+
+    //获得当前正在充电的车辆
+    // pointId: that.data.stationInfo.pointId
+    wx.request({
+      url: app.globalData.server + '/getPointInfo',
+      method: 'GET',
+      data: {
+        token: app.globalData.admin.token,
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      success(res) {
+        if (res.data.code == 200) {
+          console.log("所有充电桩信息为：");
+          console.log(res)
+          var temp = res.data.data[that.data.stationInfo.pointId];
+          console.log("获取到的充电桩信息为：");
+          console.log(temp);
+          if(_this.isListEmpty(temp)){
+            _this.setData({
+              noChargeCar : true,
+              chargeCar : {}
+            })
+          }else{
+            _this.setData({
+              noChargeCar : false,
+              "chargeCar.orderid" : temp.orderid,
+              "chargeCar.capacity":temp.capacity,
+              "chargeCar.cost":temp.cost,
+              "chargeCar.name":temp.name
+            })
+          }
+          // for( var temp in res.data.data){
+          //     console.log(temp);
+          // }
+        } else {
+          wx.showToast({
+            title: res.data.msg ||"无法获取服务中订单",
+            icon:"error"
+          })
+          that.setData({
+            noChargeCar: true
+          })
+        }
+      },
+      fail(res){
+        wx.showToast({
+          title: res.data.msg ||"无法获取服务中订单",
           icon:"error"
         })
         that.setData({
@@ -411,7 +522,7 @@ Page({
           _this.setData({
             reportData: res.data.data
           })
-
+          _this.setCurrentDayInfo();
         } else {
           wx.showToast({
             title: res.data.msg || "报表获取失败",
@@ -431,6 +542,12 @@ Page({
         wx.hideLoading();
       }
     })
+  },
+  isListEmpty: function (data) {
+    for (var key in data) {
+      return false
+    }
+    return true;
   },
   getMonthLength: function (year, month) {
     var date = year + "-" + month + "-" + "01";
@@ -474,5 +591,102 @@ Page({
     })
 
   },
+
+  chartTap: function (day) {
+    this.setData({
+      day: day
+    })
+    this.setCurrentDayInfo(day);
+  },
+
+  setCurrentDayInfo() {
+    console.log("查看第" + this.data.month + "月第" + this.data.day + "天数据");
+    var cut = 0;
+    var time = 0;
+    var elec = 0;
+    var scost = 0;
+    var cost = 0;
+    if (!this.isListEmpty(this.data.reportData)) {
+      this.data.reportData.forEach(item => {
+        var thisDate = new Date(item.date);
+        if (thisDate.getDate() == this.data.day && thisDate.getMonth() + 1 == this.data.month && thisDate.getFullYear() == this.data.year) {
+          cut = item.chargeTotalCnt;
+          time = item.chargeTotalTime;
+          elec = item.chargeTotalElec;
+          scost =  item.chargeTotalScost;
+          cost =item.chargeTotalcost;
+        }
+      });
+    }
+
+      this.setData({
+        currentDayChargeCnt: cut,
+        currentDayChargeTime: time.toFixed(2),
+        currentDayChargeElec: elec.toFixed(2),
+        currentDayChargeScost: scost.toFixed(2),
+        currentDayChargeCost: cost.toFixed(2)
+      })
+  
+
+  },
+  getTimeStamp: function () {
+    if (this.data.refreshTimeHandler != -1) {
+      clearInterval(this.data.refreshTimeHandler);
+    }
+    wx.request({
+      url: app.globalData.server + '/getTime',
+      method: 'GET',
+      header: {
+        'content-type': 'application/json'
+      },
+      success(res) {
+        var t = new Date();
+        // console.log(res);
+        // console.log(t.getTime());
+        // console.log(_this.data.startTime);
+        var temp = (t.getTime()/1000 - res.data.time) * 10 + _this.data.startTime;
+        // console.log(temp);
+        var handler;
+        _this.setData({
+            bootTime: res.data.time,
+            currentTime: temp,
+            lastRefresh : 0
+          }),
+
+        handler = setInterval(() => {
+            var nTime = _this.data.currentTime + 10;
+            // console.log(nTime);
+            var d =  new Date(nTime*1000);
+            var nH = d.getHours();
+            var nM = d.getMinutes();
+            var nS = d.getSeconds();
+            _this.setData({
+              currentTime: nTime,
+              lastRefresh : _this.data.lastRefresh + 1,
+              hour : nH,
+              minute : nM,
+              second: nS
+            })
+            if(_this.data.lastRefresh > 10) //每100s需要同步一次时间，防止差异过大(?好像没啥卵用)
+            {
+              var t =  new Date();
+              var nTime = (t.getTime()/1000 - _this.data.bootTime) * 10 + _this.data.startTime;
+              _this.setData({
+                currentTime: nTime,
+                lastRefresh : 0
+              })
+            }
+          }, 1000);
+          _this.setData({
+            refreshTimeHandler : handler
+          })
+      },
+      fail(res) {
+        wx.showToast({
+          title: '时间同步失败！',
+        })
+      }
+    })
+  }
 
 })

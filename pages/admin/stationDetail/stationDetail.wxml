@@ -1,6 +1,6 @@
 <!--pages/admin/stationDetail/stationDetail.wxml-->
 <cu-custom bgColor="bg-white" isBack="true">
-  <view class="text-black" slot="content">充电桩详情</view>
+  <view class="text-black" slot="content">{{hour}}:{{minute}}:{{second}}</view>
 </cu-custom>
 
 <view class="headContainer">
@@ -17,11 +17,6 @@
     <text>类型:</text>
     <text>{{stationInfo.type==1?"慢充":"快充"}}</text>
   </view>
-  <!-- <view class="infoItem">
-    <image src="/images/station/order.png" style="width: 60rpx; height: 60rpx;"></image>
-    <text>服务订单:</text>
-    <text>{{stationInfo.order_id}}</text>
-  </view> -->
   <view class="infoItem">
     <image src="/images/station/chageCnt.png" style="width: 60rpx; height: 60rpx;"></image>
     <text>充电次数:</text>
@@ -39,6 +34,39 @@
   </view>
 </view>
 
+<view class="card">
+  <text class="cardTitle"> 当前服务订单</text>
+  <view class="line"></view>
+
+  <view wx:if="{{!noChargeCar}}">
+    <view class="infoItem">
+      <image src="/images/station/type.png" style="width: 60rpx; height: 60rpx;"></image>
+      <text>订单id:</text>
+      <text>{{chargeCar.orderid}}</text>
+    </view>
+    <view class="infoItem">
+      <image src="/images/station/time.png" style="width: 60rpx; height: 60rpx;"></image>
+      <text>用户名:</text>
+      <text>{{chargeCar.name}}</text>
+    </view>
+    <view class="infoItem">
+      <image src="/images/station/chageCnt.png" style="width: 60rpx; height: 60rpx;"></image>
+      <text>充电量:</text>
+      <text>{{chargeCar.capacity}}</text>
+    </view>
+    <view class="infoItem">
+      <image src="/images/station/time.png" style="width: 60rpx; height: 60rpx;"></image>
+      <text>已产生费用:</text>
+      <text>{{chargeCar.cost}}</text>
+    </view>
+  </view>
+
+  <view wx:if="{{noChargeCar}}" class="fadeText justify_item_center margin_top_media">
+    <text>当前没有服务中的订单</text>
+  </view>
+
+</view>
+
 
 <view class="card">
   <text class="cardTitle">车辆排队信息</text>
@@ -46,7 +74,7 @@
   <view wx:if="{{carListEmpty}}" class="fadeText justify_item_center margin_top_media">
     <text>等候区没有车辆</text>
   </view>
-  <view wx:if="{{!carListEmpty}}" wx:for="{{carList}}" wx:key="id">
+  <view wx:if="{{!carListEmpty}}" wx:for="{{carList}}">
     <view class="cardItem">
       <view style="display: flex;">
         <view style="display: flex; flex-direction: column;">
@@ -97,16 +125,45 @@
 
 
       </view>
-
-
-
     </view>
 
   </view>
 
-  <view class="container">
-          <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
-        </view>
+  <view class="container card">
+    <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+  </view>
+
+  <view class="card">
+    <text class="font_bold font_large">{{year}}-{{month}}-{{day}}</text>
+    <view class="line"></view>
+    <view class="infoItem">
+      <image src="/images/station/type.png" style="width: 60rpx; height: 60rpx;"></image>
+      <text>充电次数:</text>
+      <text>{{currentDayChargeCnt}}</text>
+    </view>
+    <view class="infoItem">
+      <image src="/images/station/order.png" style="width: 60rpx; height: 60rpx;"></image>
+      <text>充电时长:</text>
+      <text>{{currentDayChargeTime}}</text>
+    </view>
+    <view class="infoItem">
+      <image src="/images/station/chageCnt.png" style="width: 60rpx; height: 60rpx;"></image>
+      <text>充电量:</text>
+      <text>{{currentDayChargeElec}}</text>
+    </view>
+    <view class="infoItem">
+      <image src="/images/station/time.png" style="width: 60rpx; height: 60rpx;"></image>
+      <text>充电费用:</text>
+      <text>{{currentDayChargeCost}}</text>
+    </view>
+    <view class="infoItem">
+      <image src="/images/station/chargeElec.png" style="width: 60rpx; height: 60rpx;"></image>
+      <text>服务费用:</text>
+      <text>{{currentDayChargeScost}}</text>
+    </view>
+  </view>
+
+
 </view>
 
 
@@ -118,25 +175,25 @@
 
 <wxs module="m1">
   module.exports.status2str = function (status, isOpen) {
-    if(isOpen){
-      if(status == 0){
+    if (isOpen) {
+      if (status == 0) {
         return "正常工作"
-      }else{
-       return "异常"
+      } else {
+        return "异常"
       }
-    }else{
-      return 	"关闭";
+    } else {
+      return "关闭";
     }
   }
-  module.exports.status2color = function (status , isOpen) {
-    if(isOpen){
-      if(status == 0){
+  module.exports.status2color = function (status, isOpen) {
+    if (isOpen) {
+      if (status == 0) {
         return "#58D68D"
-      }else{
-       return "#DC143C"
+      } else {
+        return "#DC143C"
       }
-    }else{
-      return 	"#778899";
+    } else {
+      return "#778899";
     }
   }
 

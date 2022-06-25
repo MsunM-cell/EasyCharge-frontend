@@ -7,6 +7,10 @@
 align-items: center;
 }
 
+/* .container{
+  padding: 0dp;
+} */
+
 .headImage {
   width: 200rpx;
   height: 200rpx;

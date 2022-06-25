@@ -1,7 +1,7 @@
 <!--pages/admin/chargeStationList/chargeStationList.wxml-->
+
 <cu-custom bgColor="bg-white" isBack="true">
-  <view>fanhui </view>
-  <view class="text-black" slot="content">充电桩列表</view>
+  <view class="text-black" slot="content">{{hour}}:{{minute}}:{{second}}</view>
 </cu-custom>
 
 <block wx:for="{{chargeStations}}" wx:key="pointNum">
@@ -27,6 +27,28 @@
   </view>
 
 </block>
+
+<view class="card">
+  <text class="font_bold font_large">等待区</text>
+  <view class="line"></view>
+  <view wx:if="{{waitListEmpty}}" class="fadeText justify_item_center margin_top_media">
+    <text>等候区没有车辆</text>
+  </view>
+
+    <view class="flex space_around flex_wrap " >
+      <view wx:for="{{waitList}}" wx:key="orderid" style="width: 33%;" class="flex flex_colomn flex_center">
+        <image src="/images/station/car.png" style="height: 60rpx; width: 60rpx; margin-right: 30rpx;"></image>
+        <text>订单id：{{item.orderid}}</text>
+        <text>用户名：{{item.name}}</text>
+        <text>模式:{{item.mode == "0"?"快充":"慢充"}}</text>
+        <text>充电量：{{item.capacity}}</text>
+      
+      </view>
+    </view>
+
+
+</view>
+
 
 <wxs module="m1">
   module.exports.getStationPic = function (status, isOpen) {
