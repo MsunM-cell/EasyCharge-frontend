@@ -38,11 +38,9 @@
     <view class="flex space_around flex_wrap " >
       <view wx:for="{{waitList}}" wx:key="orderid" style="width: 33%;" class="flex flex_colomn flex_center">
         <image src="/images/station/car.png" style="height: 60rpx; width: 60rpx; margin-right: 30rpx;"></image>
-        <text>订单id：{{item.orderid}}</text>
         <text>用户名：{{item.name}}</text>
         <text>模式:{{item.mode == "0"?"快充":"慢充"}}</text>
         <text>充电量：{{item.capacity}}</text>
-      
       </view>
     </view>
 

@@ -166,10 +166,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    wx.showLoading({
-      title: '刷新中',
-    })
     this.getStationList();
+    this.getWait();
   },
 
   /**
@@ -251,7 +249,7 @@ Page({
         // console.log(res);
         // console.log(t.getTime());
         // console.log(_this.data.startTime);
-        var temp = (t.getTime()/1000 - res.data.time) * 10 + _this.data.startTime;
+        var temp = (t.getTime()/1000 - res.data.time) * 60 + _this.data.startTime;
         // console.log(temp);
         var handler;
         _this.setData({
@@ -261,7 +259,7 @@ Page({
           }),
 
         handler = setInterval(() => {
-            var nTime = _this.data.currentTime + 10;
+            var nTime = _this.data.currentTime + 60;
             // console.log(nTime);
             var d =  new Date(nTime*1000);
             var nH = d.getHours();
@@ -277,7 +275,7 @@ Page({
             if(_this.data.lastRefresh > 10) //每再次计算一次时间，防止interval不精确
             {
               var t =  new Date();
-              var nTime = (t.getTime()/1000 - _this.data.bootTime) * 10 + _this.data.startTime;
+              var nTime = (t.getTime()/1000 - _this.data.bootTime) * 60 + _this.data.startTime;
               _this.setData({
                 currentTime: nTime,
                 lastRefresh : 0
